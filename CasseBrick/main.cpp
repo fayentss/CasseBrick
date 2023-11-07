@@ -1,4 +1,5 @@
 #include "GameObj.h"
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 int main(int argc, char** argv)
@@ -23,6 +24,14 @@ int main(int argc, char** argv)
         {
             if (oEvent.type == sf::Event::Closed)
                 oWindow.close();
+            else if (oEvent.type == sf::Event::MouseButtonReleased)
+            {
+                if (oEvent.mouseButton.button == sf::Mouse::Left)
+                {
+                    sf::Vector2i iMousePos = sf::Mouse::getPosition(oWindow);
+
+                }
+            }
         }
 
         //UPDATE
