@@ -1,20 +1,27 @@
 #pragma once
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Shape.hpp>
 
 class GameObj
 {
 private:
-	int _iposX;
-	int _iposY;
+	int _iPosX;
+	int _iPosY;
 
-	int _iwidth;
-	int _iheight;
+	int _iWidth;
+	int _iHeight;
 
-	sf::Color _ccolor;
+	sf::Color _cColor;	
+	sf::Shape* _oShape;
 
 public:
-	GameObj(int diametre, int iposX, int iposY, sf::Color color); //cercle
-	GameObj(int iwidth, int iheight, int iposX, int iposY, sf::Color color); //Rect
+
+	GameObj(int iDiametre, int iPosX, int iPosY, sf::Color cColor); //cercle
+	GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor); //Rect
+
+	void Draw(sf::Shape* oShape);
+
+	sf::Shape* GetShape();
 
 };
 

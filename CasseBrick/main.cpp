@@ -7,8 +7,12 @@ int main(int argc, char** argv)
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "SFML");
 
     GameObj* oBall = new GameObj(10.f, 10.f, 10.f, sf::Color::Green);
+    GameObj* oRect = new GameObj(20.f, 40.f, 50.f, 50.f, sf::Color::Red);
 
-    
+    oBall->Draw(oBall->GetShape());
+    oRect->Draw(oRect->GetShape());
+
+
 
     //GameLoop
     while (oWindow.isOpen())
@@ -26,8 +30,8 @@ int main(int argc, char** argv)
         //DRAW
         oWindow.clear();
 
-        oWindow.draw(oBall);
-        oWindow.draw(oRectangle);
+        oWindow.draw(*oBall->GetShape());
+        oWindow.draw(*oRect->GetShape());
 
         oWindow.display();
     }
