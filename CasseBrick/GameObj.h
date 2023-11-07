@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Shape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 class GameObj
 {
@@ -20,6 +21,7 @@ public:
 	GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor); //Rect
 
 	void Draw(sf::Shape* oShape);
+	void Collider(sf::RenderWindow oWindow, int iPosX, int iPosY);
 
 	sf::Shape* GetShape();
 
