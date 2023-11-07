@@ -12,7 +12,9 @@ private:
 	int _iWidth;
 	int _iHeight;
 
-	sf::Color _cColor;	
+	sf::Color _cColor;
+
+protected:
 	sf::Shape* _oShape;
 
 public:
@@ -21,7 +23,6 @@ public:
 	GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor); //Rect
 
 	void Draw(sf::Shape* oShape);
-	void Collider(sf::RenderWindow oWindow, int iPosX, int iPosY);
 
 	sf::Shape* GetShape();
 

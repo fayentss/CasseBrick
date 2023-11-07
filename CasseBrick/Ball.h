@@ -8,6 +8,7 @@ private:
 
 public:
 	Ball(int iDiametre, int iPosX, int iPosY, sf::Color cColor);
-	void Collider();
+	sf::Vector2f GetBallPosition();
+
 };
 

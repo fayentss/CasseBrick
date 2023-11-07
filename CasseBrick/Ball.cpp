@@ -6,10 +6,7 @@ Ball::Ball(int iDiametre, int iPosX, int iPosY, sf::Color cColor) : GameObj(iDia
 	// pos initial
 	//
 }
-void Ball::Collider() 
+sf::Vector2f Ball::GetBallPosition()
 {
-	if () 
-	{
-
-	}
-};
+	return _oShape->getPosition();
+}
