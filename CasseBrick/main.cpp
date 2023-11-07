@@ -13,8 +13,6 @@ int main(int argc, char** argv)
     oBall->Draw(oBall->GetShape());
     oRect->Draw(oRect->GetShape());
 
-
-
     //GameLoop
     while (oWindow.isOpen())
     {
