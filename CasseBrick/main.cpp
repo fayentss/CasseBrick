@@ -11,7 +11,7 @@ int main(int argc, char** argv)
     Ball* oBall = new Ball(10.f, 10.f, 10.f, sf::Color::Green);
     GameObj* oRect = new GameObj(20.f, 40.f, 50.f, 50.f, sf::Color::Red);
 
-    oBall->Draw(oBall->GetShape());
+    oBall->;
     oRect->Draw(oRect->GetShape());
 
     //GameLoop
