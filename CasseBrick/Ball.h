@@ -1,14 +1,18 @@
 #pragma once
 #include "GameObj.h"
 
-class Ball : GameObj
+class Ball : public GameObj
 {
 private:
-	//vitesse ?
+	bool _bIsMoving;
+	sf::Vector2f _vDirection;
 
 public:
-	Ball(int iDiametre, int iPosX, int iPosY, sf::Color cColor);
+	Ball(sf::RenderWindow* pWindow, int iDiametre, sf::Color cColor);
 	sf::Vector2f GetBallPosition();
+	void IsMoving(bool bIsMoving, sf::Vector2f vDirection);
+	void Movement();
+	
 
 };
 

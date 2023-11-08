@@ -3,36 +3,47 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 
-GameObj::GameObj(int iDiametre, int iPosX, int iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY, sf::Color cColor)
 {
 	_iPosX = iPosX;
 	_iPosY = iPosY;
 	_iWidth = iDiametre;
 	_iHeight = iDiametre;
 	_cColor = cColor;
+	_bEnable = true;
 
-	_oShape = new sf::CircleShape(iDiametre);
+	_pWindow = pWindow;
+	_pShape = new sf::CircleShape(iDiametre);
+	_pShape->setPosition(_iPosX, _iPosY);
+	_pShape->setFillColor(_cColor);
 };
 
-GameObj::GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow, int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor)
 {
 	_iPosX = iPosX;
 	_iPosY = iPosY;
 	_iWidth = iWidth;
 	_iHeight = iHeight;
 	_cColor = cColor;
+	_bEnable = true;
 
-	_oShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
+	_pWindow = pWindow;
+	_pShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
+	_pShape->setPosition(_iPosX, _iPosY);
+	_pShape->setFillColor(_cColor);
 };
 
-void GameObj::Draw(sf::Shape* oShape)
+sf::Vector2f GameObj::GetCenterPoint()
 {
-	oShape->setPosition(_iPosX, _iPosY);
-	oShape->setFillColor(_cColor);
-};
+	sf::Vector2f vPos = _pShape->getPosition();
+	vPos.x = vPos.x + _iWidth / 2;
+	vPos.y = vPos.y + _iHeight / 2;
+
+	return vPos;
+}
 
 sf::Shape* GameObj::GetShape()
 {
-	return _oShape;
+	return _pShape;
 };
 
