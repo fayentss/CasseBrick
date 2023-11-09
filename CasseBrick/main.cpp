@@ -1,5 +1,6 @@
 #include "GameObj.h"
 #include "Ball.h"
+#include "Canon.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
@@ -22,8 +23,10 @@ int main(int argc, char** argv)
     //Création d'une fenêtre
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "SFML");
 
-    Ball* oBall = new Ball(&oWindow, 20.f, sf::Color::Green);
+    
     GameObj* oRect = new GameObj(&oWindow, 20.f, 40.f, 50.f, 50.f, sf::Color::Red);
+    Canon* oCanon = new Canon(&oWindow, sf::Color::Yellow);
+    
 
 
     float fDeltaTime = 0;
@@ -41,6 +44,7 @@ int main(int argc, char** argv)
             {
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
                 {
+
                     sf::Vector2i vMousePos = sf::Mouse::getPosition(oWindow);
                     sf::Vector2f vBallPos = oBall->GetCenterPoint();
                     sf::Vector2f vDirection = GetMoveDirection(sf::Mouse::getPosition(oWindow), oBall->GetCenterPoint(), &oWindow);
@@ -48,11 +52,11 @@ int main(int argc, char** argv)
                 }
                 else if (oEvent.mouseButton.button == sf::Mouse::Right)
                 {
-                    oBall->GetShape()->setPosition(310, 230);
+                    //oBall->GetShape()->setPosition(310, 230);
                     sf::Vector2f vDirectionNull; 
                     vDirectionNull.x = 0;
                     vDirectionNull.y = 0;
-                    oBall->IsMoving(true, vDirectionNull);
+                    oBall->IsMoving(false, vDirectionNull);
                 }
             }
         }
@@ -65,6 +69,7 @@ int main(int argc, char** argv)
 
         oWindow.draw(*oRect->GetShape());
         oWindow.draw(*oBall->GetShape());
+        oWindow.draw(*oCanon->GetShape());
 
         oWindow.display();
 

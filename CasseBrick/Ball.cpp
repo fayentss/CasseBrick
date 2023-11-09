@@ -1,7 +1,7 @@
 #include "Ball.h"
 #include "GameObj.h"
 
-Ball::Ball(sf::RenderWindow* pWindow, int iDiametre, sf::Color cColor) : GameObj(pWindow, iDiametre, 310, 230, cColor)
+Ball::Ball(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, 310, 230, cColor)
 {
 	_bIsMoving = false;
 }

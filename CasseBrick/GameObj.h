@@ -6,11 +6,12 @@
 class GameObj
 {
 private:
-	bool _bEnable;
 
 	sf::Color _cColor;
 
 protected:
+
+	bool _bEnable;
 
 	int _iPosX;
 	int _iPosY;
@@ -18,7 +19,7 @@ protected:
 	int _iWidth;
 	int _iHeight;
 
-	sf::Window* _pWindow;
+	sf::RenderWindow* _pWindow;
 	sf::Shape* _pShape;
 
 public:
