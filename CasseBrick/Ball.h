@@ -1,5 +1,6 @@
 #pragma once
-#include "GameObj.h"
+#include "GameObj.h";
+#include "Brick.h";
 
 class Ball : public GameObj
 {
@@ -12,7 +13,7 @@ public:
 	sf::Vector2f GetBallPosition();
 	void IsMoving(bool bIsMoving, sf::Vector2f vDirection);
 	void Movement(float fDeltaTime);
-	
-
+	bool WindowCollider();
+	bool BlocCollider(Brick* pBrick);
 };
 

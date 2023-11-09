@@ -19,7 +19,7 @@ sf::Vector2f GetMoveDirection(sf::Vector2i vMousePos, sf::Vector2f vBallPos, sf:
 
 int main(int argc, char** argv)
 {
-    //Création d'une fenêtre
+    //Crï¿½ation d'une fenï¿½tre
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "SFML");
 
     Ball* oBall = new Ball(&oWindow, 20.f, sf::Color::Green);
