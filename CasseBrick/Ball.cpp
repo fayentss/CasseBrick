@@ -14,10 +14,12 @@ void Ball::IsMoving(bool bIsMoving,sf::Vector2f vDirection)
 	_bIsMoving = bIsMoving;
 	_vDirection = vDirection;
 }
-void Ball::Movement()
+void Ball::Movement(float fDeltaTime)
 {
 	if (_bIsMoving == true)
 	{
-		GetShape()->setPosition(GetShape()->getPosition() + _vDirection);
+		float fNewX = GetShape()->getPosition().x + (_vDirection.x * 200) * fDeltaTime;
+		float fNewY = GetShape()->getPosition().y + (_vDirection.y * 200) * fDeltaTime;
+		GetShape()->setPosition(fNewX,fNewY);
 	}
 }

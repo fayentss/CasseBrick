@@ -6,8 +6,8 @@
 sf::Vector2f GetMoveDirection(sf::Vector2i vMousePos, sf::Vector2f vBallPos, sf::RenderWindow* pWindow)
 {
     sf::Vector2f vDirection;
-    vDirection.x = (vMousePos.x - pWindow->getSize().x / 2) - vBallPos.x;
-    vDirection.y = (vMousePos.y - pWindow->getSize().y / 2) - vBallPos.y;
+    vDirection.x = vMousePos.x - vBallPos.x;
+    vDirection.y = vMousePos.y - vBallPos.y;
 
     float fNorme = sqrt((vDirection.x * vDirection.x) + (vDirection.y * vDirection.y));
 
@@ -26,9 +26,11 @@ int main(int argc, char** argv)
     GameObj* oRect = new GameObj(&oWindow, 20.f, 40.f, 50.f, 50.f, sf::Color::Red);
 
 
+    float fDeltaTime = 0;
     //GameLoop
     while (oWindow.isOpen())
     {
+        sf::Clock oClock;
         //EVENT
         sf::Event oEvent;
         while (oWindow.pollEvent(oEvent))
@@ -56,15 +58,17 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
-        oBall->Movement();
+        oBall->Movement(fDeltaTime);
 
         //DRAW
         oWindow.clear();
 
-        oWindow.draw(*oBall->GetShape());
         oWindow.draw(*oRect->GetShape());
+        oWindow.draw(*oBall->GetShape());
 
         oWindow.display();
+
+        fDeltaTime = oClock.restart().asSeconds();
     }
 
     return 0;

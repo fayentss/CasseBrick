@@ -11,7 +11,7 @@ public:
 	Ball(sf::RenderWindow* pWindow, int iDiametre, sf::Color cColor);
 	sf::Vector2f GetBallPosition();
 	void IsMoving(bool bIsMoving, sf::Vector2f vDirection);
-	void Movement();
+	void Movement(float fDeltaTime);
 	
 
 };
