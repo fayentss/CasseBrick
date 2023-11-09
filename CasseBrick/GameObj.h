@@ -17,9 +17,6 @@ protected:
 	int _iWidth;
 	int _iHeight;
 
-	sf::Window* _pWindow;
-	sf::Color _cColor;
-
 	sf::RenderWindow* _pWindow;
 	sf::Shape* _pShape;
 

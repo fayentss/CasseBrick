@@ -25,6 +25,8 @@ void Ball::Movement(float fDeltaTime)
 	{
 		float fNewX = GetShape()->getPosition().x + (_vDirection.x * 200) * fDeltaTime;
 		float fNewY = GetShape()->getPosition().y + (_vDirection.y * 200) * fDeltaTime;
+		_iPosX = fNewX;
+		_iPosY = fNewY;
 		GetShape()->setPosition(fNewX,fNewY);
 	}
 }
@@ -58,44 +60,43 @@ bool Ball::WindowCollider()
 
 bool Ball::BlocCollider(Brick* pBrick)
 {
+	std::vector<int> vAllPos = pBrick->GetAllPos();
 	bool GetMath = false;
-	if (_iWidth  < pBrick->GetAllPos()[2] - pBrick->GetAllPos()[0]) {
-		GetMath = Math::IsInside(_iPosX, pBrick->GetAllPos()[0], pBrick->GetAllPos()[2]);
+	if (_iWidth  < vAllPos[2] - vAllPos[0]) {
+		GetMath = Math::IsInside(_iPosX, vAllPos[0], vAllPos[2]);
 		if (GetMath == false) {
-			GetMath = Math::IsInside(_iPosX + _iWidth, pBrick->GetAllPos()[0], pBrick->GetAllPos()[2]);
+			GetMath = Math::IsInside(_iPosX + _iWidth, vAllPos[0], vAllPos[2]);
 		}
 	}
 	else 
 	{
-		GetMath = Math::IsInside(pBrick->GetAllPos()[0], _iPosX, _iPosX + _iWidth);
+		GetMath = Math::IsInside(vAllPos[0], _iPosX, _iPosX + _iWidth);
 		if (GetMath == false) {
-			GetMath = Math::IsInside(pBrick->GetAllPos()[2], _iPosX, _iPosX + _iWidth);
+			GetMath = Math::IsInside(vAllPos[2], _iPosX, _iPosX + _iWidth);
 		}
 	}
 
 	if (GetMath == false) {
-		std::cout << "PAS de colide brick connard";
 		return false;
 	}
 	else
 	{
-		if (_iHeight < pBrick->GetAllPos()[3] - pBrick->GetAllPos()[1]) {
-			GetMath = Math::IsInside(_iPosY, pBrick->GetAllPos()[1], pBrick->GetAllPos()[3]);
+		if (_iHeight < vAllPos[3] - vAllPos[1]) {
+			GetMath = Math::IsInside(_iPosY, vAllPos[1], vAllPos[3]);
 			if (GetMath == false) {
-				GetMath = Math::IsInside(_iPosY + _iHeight, pBrick->GetAllPos()[1], pBrick->GetAllPos()[3]);
+				GetMath = Math::IsInside(_iPosY + _iHeight, vAllPos[1], vAllPos[3]);
 			}
 		}
 		else
 		{
-			GetMath = Math::IsInside(pBrick->GetAllPos()[1], _iPosY, _iPosY + _iHeight);
+			GetMath = Math::IsInside(vAllPos[1], _iPosY, _iPosY + _iHeight);
 			if (GetMath == false) {
-				GetMath = Math::IsInside(pBrick->GetAllPos()[3], _iPosY, _iPosY + _iHeight);
+				GetMath = Math::IsInside(vAllPos[3], _iPosY, _iPosY + _iHeight);
 			}
 		}
 	}
 
 	if (GetMath == false) {
-		std::cout << "PAS de colide brick connard";
 		return false;
 	}
 	else

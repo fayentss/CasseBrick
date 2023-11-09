@@ -2,6 +2,7 @@
 #include "Ball.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Brick.h"
 
 sf::Vector2f GetMoveDirection(sf::Vector2i vMousePos, sf::Vector2f vBallPos, sf::RenderWindow* pWindow)
 {
@@ -23,9 +24,7 @@ int main(int argc, char** argv)
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "SFML");
 
     Ball* oBall = new Ball(&oWindow, 20.f, sf::Color::Green);
-    GameObj* oRect = new GameObj(&oWindow, 20.f, 40.f, 50.f, 50.f, sf::Color::Red);
-
-
+    Brick* oBrick = new Brick(&oWindow, 40.f, 80.f, 50, 50, sf::Color::Red);
     float fDeltaTime = 0;
     //GameLoop
     while (oWindow.isOpen())
@@ -52,18 +51,32 @@ int main(int argc, char** argv)
                     sf::Vector2f vDirectionNull; 
                     vDirectionNull.x = 0;
                     vDirectionNull.y = 0;
-                    oBall->IsMoving(true, vDirectionNull);
+                    oBall->IsMoving(false, vDirectionNull);
                 }
             }
         }
 
         //UPDATE
         oBall->Movement(fDeltaTime);
+        if (oBall->WindowCollider() == true)
+        {
+            sf::Vector2f vDirectionNull;
+            vDirectionNull.x = 0;
+            vDirectionNull.y = 0;
+            oBall->IsMoving(false, vDirectionNull);
+        }
+        if (oBall->BlocCollider(oBrick) == true)
+        {
+            sf::Vector2f vDirectionNull;
+            vDirectionNull.x = 0;
+            vDirectionNull.y = 0;
+            oBall->IsMoving(false, vDirectionNull);
+        }
 
         //DRAW
         oWindow.clear();
 
-        oWindow.draw(*oRect->GetShape());
+        oWindow.draw(*oBrick->GetShape());
         oWindow.draw(*oBall->GetShape());
 
         oWindow.display();
