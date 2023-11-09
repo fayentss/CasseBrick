@@ -5,29 +5,27 @@
 
 class GameObj
 {
-private:
+protected:
 	int _iPosX;
 	int _iPosY;
 
 	int _iWidth;
 	int _iHeight;
 
-	sf::Color _cColor;	
-	sf::Shape* _oShape;
+	sf::Color _cColor;
+
+	sf::RenderWindow* _pWindow;
+	sf::Shape* _pShape;
 
 public:
 
-	GameObj(int iDiametre, int iPosX, int iPosY, sf::Color cColor); //cercle
-	GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor); //Rect
+	GameObj(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY, sf::Color cColor); //cercle
+	GameObj(sf::RenderWindow* pWindow, int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor); //Rect
 
-	void Draw(sf::Shape* oShape);
-	void Collider(sf::RenderWindow oWindow, int iPosX, int iPosY);
+	void Draw(sf::Shape* pShape);
 
 	sf::Shape* GetShape();
 
 };
-
-
-
 
 

@@ -1,4 +1,5 @@
 #include "GameObj.h"
+#include "Ball.h"
 #include <SFML/Graphics.hpp>
 
 int main(int argc, char** argv)
@@ -6,8 +7,8 @@ int main(int argc, char** argv)
     //Création d'une fenêtre
     sf::RenderWindow oWindow(sf::VideoMode(640, 480), "SFML");
 
-    GameObj* oBall = new GameObj(10.f, 10.f, 10.f, sf::Color::Green);
-    GameObj* oRect = new GameObj(20.f, 40.f, 50.f, 50.f, sf::Color::Red);
+    GameObj* oBall = new GameObj(&oWindow, 10.f, 10.f, 10.f, sf::Color::Green);
+    GameObj* oRect = new GameObj(&oWindow, 20.f, 40.f, 50.f, 50.f, sf::Color::Red);
 
     oBall->Draw(oBall->GetShape());
     oRect->Draw(oRect->GetShape());

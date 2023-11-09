@@ -3,7 +3,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 
-GameObj::GameObj(int iDiametre, int iPosX, int iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow,int iDiametre, int iPosX, int iPosY, sf::Color cColor)
 {
 	_iPosX = iPosX;
 	_iPosY = iPosY;
@@ -11,10 +11,11 @@ GameObj::GameObj(int iDiametre, int iPosX, int iPosY, sf::Color cColor)
 	_iHeight = iDiametre;
 	_cColor = cColor;
 
-	_oShape = new sf::CircleShape(iDiametre);
+	_pWindow = pWindow;
+	_pShape = new sf::CircleShape(iDiametre);
 };
 
-GameObj::GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow,int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor)
 {
 	_iPosX = iPosX;
 	_iPosY = iPosY;
@@ -22,7 +23,8 @@ GameObj::GameObj(int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor
 	_iHeight = iHeight;
 	_cColor = cColor;
 
-	_oShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
+	_pWindow = pWindow;
+	_pShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
 };
 
 void GameObj::Draw(sf::Shape* oShape)
@@ -33,6 +35,6 @@ void GameObj::Draw(sf::Shape* oShape)
 
 sf::Shape* GameObj::GetShape()
 {
-	return _oShape;
+	return _pShape;
 };
 

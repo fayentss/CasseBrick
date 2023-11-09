@@ -1,13 +1,15 @@
 #pragma once
-#include "GameObj.h"
+#include "GameObj.h";
+#include "Brick.h";
 
-class Ball : GameObj
+class Ball : public GameObj
 {
 private:
 	//vitesse ?
 
 public:
-	Ball(int iDiametre, int iPosX, int iPosY, sf::Color cColor);
-	void Collider(sf::RenderWindow oWindow, int iPosX, int iPosY);
+	Ball(sf::RenderWindow* pWindow,int iDiametre, int iPosX, int iPosY, sf::Color cColor);
+	bool WindowCollider();
+	bool BlocCollider(Brick* pBrick);
 };
 
