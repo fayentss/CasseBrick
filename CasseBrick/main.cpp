@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Brick.h"
+#include "LevelCreator.h"
 
 sf::Vector2f GetMoveDirection(sf::Vector2i vMousePos, sf::Vector2f vBallPos, sf::RenderWindow* pWindow)
 {
@@ -21,11 +22,15 @@ sf::Vector2f GetMoveDirection(sf::Vector2i vMousePos, sf::Vector2f vBallPos, sf:
 int main(int argc, char** argv)
 {
     //Cr�ation d'une fen�tre
-    sf::RenderWindow oWindow(sf::VideoMode(640, 480), "SFML");
+    sf::RenderWindow oWindow(sf::VideoMode(1280, 720), "SFML");
 
     Ball* oBall = new Ball(&oWindow, 20.f, sf::Color::Green);
-    Brick* oBrick = new Brick(&oWindow, 40.f, 80.f, 50, 50, sf::Color::Red);
+    
+    LevelCreator* oLevel = new LevelCreator(&oWindow);
+
     float fDeltaTime = 0;
+
+    oLevel->Level1to5()
     //GameLoop
     while (oWindow.isOpen())
     {

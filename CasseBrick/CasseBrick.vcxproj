@@ -133,6 +133,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="GameObj.cpp" />
+    <ClCompile Include="LevelCreator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="GameObj.h" />
+    <ClInclude Include="LevelCreator.h" />
     <ClInclude Include="Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
