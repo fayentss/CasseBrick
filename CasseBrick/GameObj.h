@@ -7,29 +7,33 @@ class GameObj
 {
 private:
 	sf::Color _cColor;
+	sf::Shape* _pShape;
 
 protected:
 	bool _bEnable;
 
-	int _iPosX;
-	int _iPosY;
-
-	int _iWidth;
-	int _iHeight;
+	bool _bEnable;
+	float _iWidth;
+	float _iHeight;
 
 	sf::RenderWindow* _pWindow;
-	sf::Shape* _pShape;
 
 public:
 	
 
-	GameObj(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY, sf::Color cColor); //cercle
-	GameObj(sf::RenderWindow* pWindow ,int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor); //Rect
+	GameObj(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor); //cercle
+	GameObj(sf::RenderWindow* pWindow , float iWidth, float iHeight, float iPosX, float iPosY, sf::Color cColor); //Rect
 
-	sf::Vector2f GetCenterPoint();
+	void Draw() 
+	{
+		_pWindow->draw(*_pShape);
+	}
 
-	sf::Shape* GetShape();
-
+	sf::Vector2f GetPosition();
+	void SetPostion(float iPosX, float iPosY);
+	float GetRotation();
+	void SetRotation(float fAngle);
+	void SetOrigine(float iPosX, float iPosY);
 };
 
 

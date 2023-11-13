@@ -3,10 +3,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 
-GameObj::GameObj(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor)
 {
-	_iPosX = iPosX;
-	_iPosY = iPosY;
 	_iWidth = iDiametre;
 	_iHeight = iDiametre;
 	_cColor = cColor;
@@ -14,14 +12,13 @@ GameObj::GameObj(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY,
 
 	_pWindow = pWindow;
 	_pShape = new sf::CircleShape(iDiametre);
-	_pShape->setPosition(_iPosX, _iPosY);
+	_pShape->setOrigin(_iWidth/2, _iHeight / 2);
+	_pShape->setPosition(iPosX, iPosY);
 	_pShape->setFillColor(_cColor);
 };
 
-GameObj::GameObj(sf::RenderWindow* pWindow, int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow, float iWidth, float iHeight, float iPosX, float iPosY, sf::Color cColor)
 {
-	_iPosX = iPosX;
-	_iPosY = iPosY;
 	_iWidth = iWidth;
 	_iHeight = iHeight;
 	_cColor = cColor;
@@ -29,21 +26,32 @@ GameObj::GameObj(sf::RenderWindow* pWindow, int iWidth, int iHeight, int iPosX, 
 
 	_pWindow = pWindow;
 	_pShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
-	_pShape->setPosition(_iPosX, _iPosY);
+	_pShape->setOrigin(_iWidth / 2, _iHeight / 2);
+	_pShape->setPosition(iPosX, iPosY);
 	_pShape->setFillColor(_cColor);
 };
 
-sf::Vector2f GameObj::GetCenterPoint()
+sf::Vector2f GameObj::GetPosition()
 {
-	sf::Vector2f vPos = _pShape->getPosition();
-	vPos.x = vPos.x + _iWidth / 2;
-	vPos.y = vPos.y + _iHeight / 2;
-
-	return vPos;
-}
-
-sf::Shape* GameObj::GetShape()
-{
-	return _pShape;
+	return _pShape->getPosition();
 };
 
+void GameObj::SetPostion(float iPosX, float iPosY)
+{
+	_pShape->setPosition(iPosX, iPosY);
+}
+
+float GameObj::GetRotation()
+{
+	return _pShape->getRotation();
+};
+
+void GameObj::SetRotation(float fAngle)
+{
+	_pShape->setRotation(fAngle);
+}
+
+void GameObj::SetOrigine(float iPosX, float iPosY)
+{
+	_pShape->setOrigin(iPosX, iPosY);
+}

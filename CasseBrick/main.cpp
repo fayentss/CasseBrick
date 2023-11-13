@@ -1,32 +1,21 @@
 #include "GameObj.h"
 #include "Ball.h"
+#include "Canon.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Brick.h"
 #include "LevelCreator.h"
 
-sf::Vector2f GetMoveDirection(sf::Vector2i vMousePos, sf::Vector2f vBallPos, sf::RenderWindow* pWindow)
-{
-    sf::Vector2f vDirection;
-    vDirection.x = vMousePos.x - vBallPos.x;
-    vDirection.y = vMousePos.y - vBallPos.y;
-
-    float fNorme = sqrt((vDirection.x * vDirection.x) + (vDirection.y * vDirection.y));
-
-    vDirection.x = vDirection.x / fNorme;
-    vDirection.y = vDirection.y / fNorme;
-
-    return vDirection;
-}
-
 int main(int argc, char** argv)
 {
     //Cr�ation d'une fen�tre
     sf::RenderWindow oWindow(sf::VideoMode(1280, 720), "SFML");
-
-    Ball* oBall = new Ball(&oWindow, 20.f, sf::Color::Green);
     
     LevelCreator* oLevel = new LevelCreator(&oWindow);
+    GameObj* oRect = new GameObj(&oWindow, 20.f, 40.f, 50.f, 50.f, sf::Color::Red);
+    Canon* oCanon = new Canon(&oWindow, sf::Color::Yellow);
+    
+
 
     float fDeltaTime = 0;
 
@@ -41,22 +30,15 @@ int main(int argc, char** argv)
         {
             if (oEvent.type == sf::Event::Closed)
                 oWindow.close();
+            else if (oEvent.type == sf::Event::MouseMoved)
+            {
+                oCanon->UpdateRot();
+            }
             else if (oEvent.type == sf::Event::MouseButtonReleased)
             {
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
-                {
-                    sf::Vector2i vMousePos = sf::Mouse::getPosition(oWindow);
-                    sf::Vector2f vBallPos = oBall->GetCenterPoint();
-                    sf::Vector2f vDirection = GetMoveDirection(sf::Mouse::getPosition(oWindow), oBall->GetCenterPoint(), &oWindow);
-                    oBall->IsMoving(true, vDirection);
-                }
-                else if (oEvent.mouseButton.button == sf::Mouse::Right)
-                {
-                    oBall->GetShape()->setPosition(310, 230);
-                    sf::Vector2f vDirectionNull; 
-                    vDirectionNull.x = 0;
-                    vDirectionNull.y = 0;
-                    oBall->IsMoving(false, vDirectionNull);
+                {   
+                    oCanon->ShootBall();
                 }
             }
         }
@@ -76,13 +58,21 @@ int main(int argc, char** argv)
             vDirectionNull.x = 0;
             vDirectionNull.y = 0;
             oBall->IsMoving(false, vDirectionNull);
+        for (int i = 0; i < oCanon->GetBallList().size(); i++)
+        {
+            oCanon->GetBallList()[i]->Movement(fDeltaTime);
         }
 
         //DRAW
         oWindow.clear();
 
-        oWindow.draw(*oBrick->GetShape());
-        oWindow.draw(*oBall->GetShape());
+        oRect->Draw();
+        oCanon->Draw();
+        
+        for (int i = 0; i < oCanon->GetBallList().size(); i++)
+        {
+            oCanon->GetBallList()[i]->Draw();
+        }
 
         oWindow.display();
 

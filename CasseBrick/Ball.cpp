@@ -3,14 +3,14 @@
 #include <iostream>
 #include "Math.h"
 
-Ball::Ball(sf::RenderWindow* pWindow, int iDiametre, sf::Color cColor) : GameObj(pWindow, iDiametre, 310, 230, cColor)
+Ball::Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, 310, 230, cColor)
 {
 	_bIsMoving = false;
 }
 
 sf::Vector2f Ball::GetBallPosition()
 {
-	return _pShape->getPosition();
+	return GetPosition();
 }
 
 void Ball::IsMoving(bool bIsMoving,sf::Vector2f vDirection)
@@ -23,11 +23,9 @@ void Ball::Movement(float fDeltaTime)
 {
 	if (_bIsMoving == true)
 	{
-		float fNewX = GetShape()->getPosition().x + (_vDirection.x * 200) * fDeltaTime;
-		float fNewY = GetShape()->getPosition().y + (_vDirection.y * 200) * fDeltaTime;
-		_iPosX = fNewX;
-		_iPosY = fNewY;
-		GetShape()->setPosition(fNewX,fNewY);
+		float fNewX = GetPosition().x + (_vDirection.x * 200) * fDeltaTime;
+		float fNewY = GetPosition().y + (_vDirection.y * 200) * fDeltaTime;
+		SetPostion(fNewX, fNewY);
 	}
 }
 
