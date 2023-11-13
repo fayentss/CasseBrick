@@ -25,12 +25,15 @@ int main(int argc, char** argv)
         {
             if (oEvent.type == sf::Event::Closed)
                 oWindow.close();
+            else if (oEvent.type == sf::Event::MouseMoved)
+            {
+                oCanon->UpdateRot();
+            }
             else if (oEvent.type == sf::Event::MouseButtonReleased)
             {
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
                 {   
                     oCanon->ShootBall();
-                    oCanon->GetShape()->setRotation(oCanon->GetShape()->getRotation() + 10);
                 }
             }
         }
@@ -44,12 +47,12 @@ int main(int argc, char** argv)
         //DRAW
         oWindow.clear();
 
-        oWindow.draw(*oRect->GetShape());
-        oWindow.draw(*oCanon->GetShape());
+        oRect->Draw();
+        oCanon->Draw();
         
         for (int i = 0; i < oCanon->GetBallList().size(); i++)
         {
-            oWindow.draw(*oCanon->GetBallList()[i]->GetShape());
+            oCanon->GetBallList()[i]->Draw();
         }
 
         oWindow.display();

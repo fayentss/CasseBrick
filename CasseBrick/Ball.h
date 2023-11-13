@@ -8,7 +8,7 @@ private:
 	sf::Vector2f _vDirection;
 
 public:
-	Ball(sf::RenderWindow* pWindow, int iDiametre, int iPosX, int iPosY, sf::Color cColor);
+	Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor);
 	sf::Vector2f GetBallPosition();
 	void IsMoving(bool bIsMoving, sf::Vector2f vDirection);
 	void Movement(float fDeltaTime);

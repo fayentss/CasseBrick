@@ -5,7 +5,7 @@
 
 class Canon : public GameObj
 {
-protected:
+private:
 	std::vector<Ball*> _vBallList;
 public :
 	Canon(sf::RenderWindow* pWindow, sf::Color cColor);
