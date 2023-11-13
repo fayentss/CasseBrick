@@ -46,4 +46,9 @@ sf::Shape* GameObj::GetShape()
 {
 	return _pShape;
 };
+sf::Shape* GameObj::SetShape(int x,int y)
+{
+	_pShape->setPosition(x, y);
+	return _pShape;
+};
 

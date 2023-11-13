@@ -29,7 +29,7 @@ public:
 	sf::Vector2f GetCenterPoint();
 
 	sf::Shape* GetShape();
-
+	sf::Shape* SetShape(int x, int y);
 };
 
 

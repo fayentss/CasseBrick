@@ -13,7 +13,13 @@ void LevelCreator::Level1to5(Ball* oBall) {
 	int h = 50;
 	for (int i = 1; i < 15; i++)
 	{
-		w + 80;
+		w = w + 85;
 		_vBrickFolder[i]->GetShape()->setPosition(w, h);
+
+		std::cout << "yo    " << _vBrickFolder[i]->GetShape()->getPosition().x << "c'etait x" << _vBrickFolder[i]->GetShape()->getPosition().y;
 	}
 }
+std::vector<Brick*> LevelCreator::GetVBrick()
+{
+	return _vBrickFolder;
+};

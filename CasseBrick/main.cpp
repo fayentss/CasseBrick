@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 
     float fDeltaTime = 0;
 
-    oLevel->Level1to5()
+    oLevel->Level1to5(oBall);
     //GameLoop
     while (oWindow.isOpen())
     {
@@ -70,18 +70,29 @@ int main(int argc, char** argv)
             vDirectionNull.y = 0;
             oBall->IsMoving(false, vDirectionNull);
         }
-        if (oBall->BlocCollider(oBrick) == true)
+        std::vector<Brick*> oBricks = oLevel->GetVBrick();
+        for(int i = 0; i < oBricks.size(); i++)
         {
-            sf::Vector2f vDirectionNull;
-            vDirectionNull.x = 0;
-            vDirectionNull.y = 0;
-            oBall->IsMoving(false, vDirectionNull);
+            if (oBall->BlocCollider(oBricks[i]) == true)
+            {
+                std::cout << "COLLISION" << std::endl;
+
+                sf::Vector2f vDirectionNull;
+                vDirectionNull.x = 0;
+                vDirectionNull.y = 0;
+                oBall->IsMoving(false, vDirectionNull);
+                std::cout << "i:" << i;
+
+            }
         }
+
 
         //DRAW
         oWindow.clear();
-
-        oWindow.draw(*oBrick->GetShape());
+        for (int i = 0; i < oLevel->GetVBrick().size(); i++)
+        {
+            oWindow.draw(*oLevel->GetVBrick()[i]->GetShape());
+        }
         oWindow.draw(*oBall->GetShape());
 
         oWindow.display();

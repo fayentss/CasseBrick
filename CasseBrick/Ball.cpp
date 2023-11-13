@@ -35,24 +35,24 @@ bool Ball::WindowCollider()
 {
 	if ( _iPosX + _iWidth > _pWindow->getSize().x )
 	{
-		std::cout << "colide a droit connard";
+		//std::cout << "colide a droit connard";
 		return true;
 	}
 	else if (_iPosX < 0)
 	{
-		std::cout << "colide a gauche connard";
+		//std::cout << "colide a gauche connard";
 		return true;
 	}
 
 
 	if (_iPosY + _iHeight > _pWindow->getSize().y)
 	{
-		std::cout << "colide en haut connard";
+		//std::cout << "colide en haut connard";
 		return true;
 	}
 	else if (_iPosY < 0)
 	{
-		std::cout << "colide en bas connard";
+		//std::cout << "colide en bas connard";
 		return true;
 	}
 	return false;
@@ -64,8 +64,10 @@ bool Ball::BlocCollider(Brick* pBrick)
 	bool GetMath = false;
 	if (_iWidth  < vAllPos[2] - vAllPos[0]) {
 		GetMath = Math::IsInside(_iPosX, vAllPos[0], vAllPos[2]);
+		//std::cout << "all pos"<< _iPosX <<"     "<< vAllPos[0] <<"        "<< vAllPos[2];
 		if (GetMath == false) {
 			GetMath = Math::IsInside(_iPosX + _iWidth, vAllPos[0], vAllPos[2]);
+			//std::cout << "yo1";
 		}
 	}
 	else 
@@ -73,11 +75,14 @@ bool Ball::BlocCollider(Brick* pBrick)
 		GetMath = Math::IsInside(vAllPos[0], _iPosX, _iPosX + _iWidth);
 		if (GetMath == false) {
 			GetMath = Math::IsInside(vAllPos[2], _iPosX, _iPosX + _iWidth);
+			//std::cout << "yo2";
 		}
 	}
 
 	if (GetMath == false) {
+		//std::cout << "yo3";
 		return false;
+		
 	}
 	else
 	{
@@ -85,6 +90,7 @@ bool Ball::BlocCollider(Brick* pBrick)
 			GetMath = Math::IsInside(_iPosY, vAllPos[1], vAllPos[3]);
 			if (GetMath == false) {
 				GetMath = Math::IsInside(_iPosY + _iHeight, vAllPos[1], vAllPos[3]);
+				//std::cout << "yo4";
 			}
 		}
 		else
@@ -92,16 +98,18 @@ bool Ball::BlocCollider(Brick* pBrick)
 			GetMath = Math::IsInside(vAllPos[1], _iPosY, _iPosY + _iHeight);
 			if (GetMath == false) {
 				GetMath = Math::IsInside(vAllPos[3], _iPosY, _iPosY + _iHeight);
+				//std::cout << "yo5";
 			}
 		}
 	}
 
 	if (GetMath == false) {
+		//std::cout << "yo6";
 		return false;
 	}
 	else
 	{
-		std::cout << "colide brick connard";
+		//std::cout << "colide brick connard";
 		return true;
 	}
 }
