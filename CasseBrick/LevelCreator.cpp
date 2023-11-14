@@ -13,7 +13,10 @@ void LevelCreator::Level1to5() {
 	int h = 50;
 	for (int i = 1; i < 15; i++)
 	{
-		w + 80;
+		w = w + 85;
 		_vBrickFolder[i]->SetPostion(w, h);
 	}
+}
+std::vector<Brick*> LevelCreator::GetvBrick() {
+	return _vBrickFolder;
 }

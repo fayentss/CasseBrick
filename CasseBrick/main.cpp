@@ -43,27 +43,36 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
-        /*
-        if (oBall->WindowCollider() == true)
-        {
-            sf::Vector2f vDirectionNull;
-            vDirectionNull.x = 0;
-            vDirectionNull.y = 0;
-            oBall->IsMoving(false, vDirectionNull);
-        }
-        if (oBall->BlocCollider(oBrick) == true)
-        {
-            sf::Vector2f vDirectionNull;
-            vDirectionNull.x = 0;
-            vDirectionNull.y = 0;
-            oBall->IsMoving(false, vDirectionNull);*/
-        for (int i = 0; i < oCanon->GetBallList().size(); i++)
+        for (int i = 0; i < oCanon->GetBallList().size(); i++) 
         {
             oCanon->GetBallList()[i]->Movement(fDeltaTime);
+            if (oCanon->GetBallList()[i]->WindowCollider() == true)
+            {
+                sf::Vector2f vDirectionNull;
+                vDirectionNull.x = 0;
+                vDirectionNull.y = 0;
+                oCanon->GetBallList()[i]->IsMoving(false, vDirectionNull);
+            }
+            for (int j = 0; j < oLevel->GetvBrick().size(); j++) 
+            {
+                if (oCanon->GetBallList()[i]->BlocCollider(oLevel->GetvBrick()[j]) == true)
+                {
+                    sf::Vector2f vDirectionNull;
+                    vDirectionNull.x = 0;
+                    vDirectionNull.y = 0;
+                    oCanon->GetBallList()[i]->IsMoving(false, vDirectionNull);
+                }
+            }
+            oCanon->GetBallList()[i]->Movement(fDeltaTime);
         }
-
         //DRAW
         oWindow.clear();
+        for (int j = 0; j < oLevel->GetvBrick().size(); j++)
+        {
+            oLevel->GetvBrick()[j]->Draw();
+        }
+        
+        oCanon->Draw();
         
         for (int i = 0; i < oCanon->GetBallList().size(); i++)
         {
