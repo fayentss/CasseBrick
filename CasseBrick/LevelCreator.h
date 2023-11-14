@@ -11,5 +11,6 @@ private:
 public:	
 	LevelCreator(sf::RenderWindow* pWindow);
 	void Level1to5();//cette fonctione ne fonctionne qu'avec le builder ci-dessus
+	std::vector<Brick*> GetvBrick();
 };
 
