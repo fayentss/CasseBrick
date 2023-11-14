@@ -8,12 +8,12 @@ LevelCreator::LevelCreator(sf::RenderWindow* pWindow) {
 	}
 }
 void LevelCreator::Level1to5(Ball* oBall) {
-	_vBrickFolder[0]->GetShape()->setPosition(50, 50);
+	_vBrickFolder[0]->SetPostion(50, 50);
 	int w = 50;
 	int h = 50;
 	for (int i = 1; i < 15; i++)
 	{
 		w + 80;
-		_vBrickFolder[i]->GetShape()->setPosition(w, h);
+		_vBrickFolder[i]->SetPostion(w, h);
 	}
 }
