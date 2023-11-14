@@ -6,9 +6,9 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.5, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.01, cColor)
+Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.5, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.1, cColor)
 {
-	//SetOrigine(GetSize().x / 2, GetSize().y * (3 / 4));
+	SetOrigine(GetSize().x / 2, GetSize().y * (3 / 4));
 }
 
 void Canon::UpdateRot()

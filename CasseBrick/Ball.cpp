@@ -29,32 +29,40 @@ void Ball::Movement(float fDeltaTime)
 	}
 }
 
-bool Ball::WindowCollider()
+void Ball::Bounce(const char* side)
 {
+	if (side == "Left" || side == "Right")
+		_vDirection.x = -_vDirection.x;
+	else if (side == "Top")
+		_vDirection.y = -_vDirection.y;
+}
+
+void Ball::WindowCollider()
+{
+	//Right Colision 
 	if ( GetPosition().x + _iWidth > _pWindow->getSize().x)
 	{
-		std::cout << "colide a droit connard";
-		return true;
+		Bounce("Right");
 	}
+	//Left Colision 
 	else if (GetPosition().x < 0)
 	{
-		std::cout << "colide a gauche connard";
-		return true;
+		Bounce("Left");
 	}
-
-
-	if (GetPosition().y + _iHeight > _pWindow->getSize().y)
-	{
-		std::cout << "colide en haut connard";
-		return true;
-	}
+	//Top Colision 
 	else if (GetPosition().y < 0)
 	{
-		std::cout << "colide en bas connard";
-		return true;
+		std::cout << "TEST";
+		Bounce("Top");
 	}
-	return false;
+	//Bot Colision 
+	else if (GetPosition().y < 0)
+	{
+		//delete;
+	}
 };
+
+
 
 bool Ball::BlocCollider(Brick* pBrick)
 {
@@ -94,12 +102,7 @@ bool Ball::BlocCollider(Brick* pBrick)
 		}
 	}
 
-	if (GetMath == false) {
-		return false;
-	}
-	else
-	{
-		std::cout << "colide brick connard";
-		return true;
+	if (GetMath == true) {
+		_bIsMoving = false;
 	}
 }

@@ -13,10 +13,10 @@ std::vector<float> Brick::GetAllPos()
 	* 3 c'est iHeight
 	*/
 	std::vector<float> Allpos{
-		GetPosition().x,
-		GetPosition().y,
-		_iWidth + GetPosition().x,
-		_iHeight + GetPosition().y
+		GetPosition().x - _iWidth / 2,
+		GetPosition().y - _iHeight / 2,
+		GetPosition().x + _iWidth / 2,
+		GetPosition().y + _iHeight / 2
 	};
 	return Allpos;
 };

@@ -13,7 +13,10 @@ public:
 	sf::Vector2f GetBallDirection();
 	void IsMoving(bool bIsMoving, sf::Vector2f vDirection);
 	void Movement(float fDeltaTime);
-	bool WindowCollider();
+	void Bounce(const char* side);
+	void WindowCollider();
 	bool BlocCollider(Brick* pBrick);
+
+	~Ball();
 };
 

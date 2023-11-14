@@ -46,25 +46,15 @@ int main(int argc, char** argv)
         for (int i = 0; i < oCanon->GetBallList().size(); i++) 
         {
             oCanon->GetBallList()[i]->Movement(fDeltaTime);
-            if (oCanon->GetBallList()[i]->WindowCollider() == true)
-            {
-                sf::Vector2f vDirectionNull;
-                vDirectionNull.x = 0;
-                vDirectionNull.y = 0;
-                oCanon->GetBallList()[i]->IsMoving(false, vDirectionNull);
-            }
+
+            oCanon->GetBallList()[i]->WindowCollider();
+
             for (int j = 0; j < oLevel->GetvBrick().size(); j++) 
             {
-                if (oCanon->GetBallList()[i]->BlocCollider(oLevel->GetvBrick()[j]) == true)
-                {
-                    sf::Vector2f vDirectionNull;
-                    vDirectionNull.x = 0;
-                    vDirectionNull.y = 0;
-                    oCanon->GetBallList()[i]->IsMoving(false, vDirectionNull);
-                }
+                oCanon->GetBallList()[i]->BlocCollider(oLevel->GetvBrick()[j]);
             }
-            oCanon->GetBallList()[i]->Movement(fDeltaTime);
         }
+
         //DRAW
         oWindow.clear();
         for (int j = 0; j < oLevel->GetvBrick().size(); j++)
