@@ -6,8 +6,10 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.1, (pWindow->getSize().x * 0.1)*1.5, pWindow->getSize().x / 2, pWindow->getSize().y / 2, cColor)
-{}
+Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.5, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.01, cColor)
+{
+	//SetOrigine(GetSize().x / 2, GetSize().y * (3 / 4));
+}
 
 void Canon::UpdateRot()
 {
@@ -33,23 +35,22 @@ std::vector<Ball*> Canon::GetBallList()
 void Canon::ShootBall()
 {
 	float iBallDiametre = 20;
-	float iBallPosX = GetPosition().x;
-	float iBallPosY = GetPosition().y;
-	Ball* oBall = new Ball(_pWindow, iBallDiametre, iBallPosX, iBallPosY, sf::Color::Green);
-
-	_vBallList.push_back(oBall);
 
 	sf::Vector2i vMousePos = sf::Mouse::getPosition(*_pWindow);
-	sf::Vector2f vBallPos = oBall->GetPosition();
+	sf::Vector2f vCanonPos = GetPosition();
 
 	sf::Vector2f vDirection;
-	vDirection.x = vMousePos.x - vBallPos.x;
-	vDirection.y = vMousePos.y - vBallPos.y;
+	vDirection.x = vMousePos.x - vCanonPos.x;
+	vDirection.y = vMousePos.y - vCanonPos.y;
 
 	float fNorme = sqrt((vDirection.x * vDirection.x) + (vDirection.y * vDirection.y));
 
 	vDirection.x = vDirection.x / fNorme;
 	vDirection.y = vDirection.y / fNorme;
 
+	sf::Vector2f vBallPos = GetPosition() + (vDirection * (GetSize().y / 2));
+
+	Ball* oBall = new Ball(_pWindow, iBallDiametre, vBallPos.x, vBallPos.y, sf::Color::Green);
+	_vBallList.push_back(oBall);
 	oBall->IsMoving(true, vDirection);
 }

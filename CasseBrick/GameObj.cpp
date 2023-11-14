@@ -51,6 +51,11 @@ void GameObj::SetRotation(float fAngle)
 	_pShape->setRotation(fAngle);
 }
 
+sf::Vector2f GameObj::GetSize()
+{
+	return sf::Vector2f(_iWidth, _iHeight);
+}
+
 void GameObj::SetOrigine(float iPosX, float iPosY)
 {
 	_pShape->setOrigin(iPosX, iPosY);

@@ -10,7 +10,7 @@ private:
 
 public:
 	Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor);
-	sf::Vector2f GetBallPosition();
+	sf::Vector2f GetBallDirection();
 	void IsMoving(bool bIsMoving, sf::Vector2f vDirection);
 	void Movement(float fDeltaTime);
 	bool WindowCollider();

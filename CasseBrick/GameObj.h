@@ -32,6 +32,7 @@ public:
 	void SetPostion(float iPosX, float iPosY);
 	float GetRotation();
 	void SetRotation(float fAngle);
+	sf::Vector2f GetSize();
 	void SetOrigine(float iPosX, float iPosY);
 };
 
