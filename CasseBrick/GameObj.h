@@ -8,12 +8,12 @@ class GameObj
 private:
 	sf::Color _cColor;
 	sf::Shape* _pShape;
+	float _iWidth;
+	float _iHeight;
 
 protected:
 	bool _bEnable;
 
-	float _iWidth;
-	float _iHeight;
 
 	sf::RenderWindow* _pWindow;
 
@@ -29,6 +29,7 @@ public:
 	}
 
 	sf::Vector2f GetPosition();
+	sf::Vector2f GetPositionTopLeft();
 	void SetPostion(float iPosX, float iPosY);
 	float GetRotation();
 	void SetRotation(float fAngle);

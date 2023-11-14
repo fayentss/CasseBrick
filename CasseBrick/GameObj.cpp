@@ -12,7 +12,6 @@ GameObj::GameObj(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float 
 
 	_pWindow = pWindow;
 	_pShape = new sf::CircleShape(iDiametre);
-	_pShape->setOrigin(_iWidth/2, _iHeight / 2);
 	_pShape->setPosition(iPosX, iPosY);
 	_pShape->setFillColor(_cColor);
 };
@@ -26,7 +25,6 @@ GameObj::GameObj(sf::RenderWindow* pWindow, float iWidth, float iHeight, float i
 
 	_pWindow = pWindow;
 	_pShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
-	_pShape->setOrigin(_iWidth / 2, _iHeight / 2);
 	_pShape->setPosition(iPosX, iPosY);
 	_pShape->setFillColor(_cColor);
 };

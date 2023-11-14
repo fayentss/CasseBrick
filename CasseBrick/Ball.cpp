@@ -23,6 +23,7 @@ void Ball::Movement(float fDeltaTime)
 {
 	if (_bIsMoving == true)
 	{
+
 		float fNewX = GetPosition().x + (_vDirection.x * 350) * fDeltaTime;
 		float fNewY = GetPosition().y + (_vDirection.y * 350) * fDeltaTime;
 		SetPostion(fNewX, fNewY);
@@ -39,24 +40,26 @@ void Ball::Bounce(const char* side)
 
 void Ball::WindowCollider()
 {
+	sf::Vector2f fBallPos = GetPosition();
+	sf::Vector2f fBallSize = GetSize();
+
 	//Right Colision 
-	if ( GetPosition().x + _iWidth > _pWindow->getSize().x)
+	if (fBallPos.x + fBallSize.x > _pWindow->getSize().x)
 	{
 		Bounce("Right");
 	}
 	//Left Colision 
-	else if (GetPosition().x < 0)
+	else if (fBallPos.x < 0)
 	{
 		Bounce("Left");
 	}
 	//Top Colision 
-	else if (GetPosition().y < 0)
+	else if (fBallPos.y < 0)
 	{
-		std::cout << "TEST";
 		Bounce("Top");
 	}
 	//Bot Colision 
-	else if (GetPosition().y < 0)
+	else if (fBallPos.y < 0)
 	{
 		//delete;
 	}
@@ -64,45 +67,47 @@ void Ball::WindowCollider()
 
 
 
-bool Ball::BlocCollider(Brick* pBrick)
+void Ball::BlocCollider(Brick* pBrick)
 {
-	std::vector<float> vAllPos = pBrick->GetAllPos();
 	bool GetMath = false;
-	if (_iWidth  < vAllPos[2] - vAllPos[0]) {
-		GetMath = Math::IsInside(GetPosition().x, vAllPos[0], vAllPos[2]);
-		if (GetMath == false) {
-			GetMath = Math::IsInside(GetPosition().x + _iWidth, vAllPos[0], vAllPos[2]);
-		}
+
+	sf::Vector2f fBrickPos = pBrick->GetPosition();
+	sf::Vector2f fBrickSize = pBrick->GetSize();
+	sf::Vector2f fBallPos = GetPosition();
+	sf::Vector2f fBallSize = GetSize();
+
+	if (fBallSize.x < fBrickSize.x)
+	{
+		GetMath = Math::IsInside(fBallPos.x, fBrickPos.x, fBrickPos.x + fBrickSize.x);
+		if (GetMath == false) 
+			GetMath = Math::IsInside(fBallPos.x + fBallSize.x, fBrickPos.x, fBrickPos.x + fBrickSize.x);
 	}
 	else 
 	{
-		GetMath = Math::IsInside(vAllPos[0], GetPosition().x, GetPosition().x + _iWidth);
-		if (GetMath == false) {
-			GetMath = Math::IsInside(vAllPos[2], GetPosition().x, GetPosition().x + _iWidth);
-		}
+		GetMath = Math::IsInside(fBrickPos.x, fBallPos.x, fBallPos.x + fBallSize.x);
+		if (GetMath == false)
+			GetMath = Math::IsInside(fBrickPos.x + fBrickSize.x, fBallPos.x, fBallPos.x + fBallSize.x);
 	}
 
 	if (GetMath == false) {
-		return false;
+		return;
 	}
 	else
 	{
-		if (_iHeight < vAllPos[3] - vAllPos[1]) {
-			GetMath = Math::IsInside(GetPosition().y, vAllPos[1], vAllPos[3]);
-			if (GetMath == false) {
-				GetMath = Math::IsInside(GetPosition().y + _iHeight, vAllPos[1], vAllPos[3]);
-			}
+		if (fBallSize.y < fBrickSize.y) {
+			GetMath = Math::IsInside(fBallPos.y, fBrickPos.y, fBrickPos.y + fBrickSize.y);
+			if (GetMath == false)
+				GetMath = Math::IsInside(fBallPos.y + fBallSize.y, fBrickPos.y, fBrickPos.y + fBrickSize.y);
+
 		}
 		else
 		{
-			GetMath = Math::IsInside(vAllPos[1], GetPosition().y, GetPosition().y + _iHeight);
-			if (GetMath == false) {
-				GetMath = Math::IsInside(vAllPos[3], GetPosition().y, GetPosition().y + _iHeight);
-			}
+			GetMath = Math::IsInside(fBrickPos.y, fBallPos.y, fBallPos.y + fBallSize.y);
+			if (GetMath == false)
+				GetMath = Math::IsInside(fBrickPos.y + fBrickSize.y, fBallPos.y, fBallPos.y + fBallSize.y);
 		}
 	}
 
-	if (GetMath == true) {
+	if (GetMath == true)
 		_bIsMoving = false;
-	}
 }

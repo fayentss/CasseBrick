@@ -6,7 +6,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.5, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.1, cColor)
+Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.1, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.1, cColor)
 {
 	SetOrigine(GetSize().x / 2, GetSize().y * (3 / 4));
 }
@@ -24,7 +24,14 @@ void Canon::UpdateRot()
 
 	float fAngle = (atan(fO / fA) * (180 / 3.1415));
 
-	SetRotation(-fAngle - 90);
+	if (vMousePos.x < vCanonPoint.x)
+	{
+		SetRotation(-fAngle + 90);
+	}
+	else
+	{
+		SetRotation(-fAngle - 90);
+	}
 }
 
 std::vector<Ball*> Canon::GetBallList()

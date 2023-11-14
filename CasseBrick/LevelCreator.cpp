@@ -4,7 +4,7 @@ LevelCreator::LevelCreator(sf::RenderWindow* pWindow) {
 	_pWindow = pWindow;
 	for (int i = 0; i < 15; i++)
 	{
-		_vBrickFolder.push_back(new Brick(_pWindow, 80.f, 40.f, 50, 50, sf::Color::Red));
+		_vBrickFolder.push_back(new Brick(_pWindow, 80.f, 40.f, 50.f, 50.f, sf::Color::Red));
 	}
 }
 void LevelCreator::Level1to5() {

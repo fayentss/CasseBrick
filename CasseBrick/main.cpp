@@ -13,8 +13,6 @@ int main(int argc, char** argv)
     
     LevelCreator* oLevel = new LevelCreator(&oWindow);
     Canon* oCanon = new Canon(&oWindow, sf::Color::Yellow);
-    
-
 
     float fDeltaTime = 0;
 
@@ -49,10 +47,12 @@ int main(int argc, char** argv)
 
             oCanon->GetBallList()[i]->WindowCollider();
 
+            
             for (int j = 0; j < oLevel->GetvBrick().size(); j++) 
             {
                 oCanon->GetBallList()[i]->BlocCollider(oLevel->GetvBrick()[j]);
             }
+            
         }
 
         //DRAW

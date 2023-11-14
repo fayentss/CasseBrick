@@ -15,7 +15,7 @@ public:
 	void Movement(float fDeltaTime);
 	void Bounce(const char* side);
 	void WindowCollider();
-	bool BlocCollider(Brick* pBrick);
+	void BlocCollider(Brick* pBrick);
 
 	~Ball();
 };
