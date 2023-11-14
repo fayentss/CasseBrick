@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Math.h"
 
-Ball::Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, 310, 230, cColor)
+Ball::Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, iPosX, iPosY, cColor)
 {
 	_bIsMoving = false;
 }
