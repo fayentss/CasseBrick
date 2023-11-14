@@ -7,7 +7,7 @@ LevelCreator::LevelCreator(sf::RenderWindow* pWindow) {
 		_vBrickFolder.push_back(new Brick(_pWindow, 80.f, 40.f, 50, 50, sf::Color::Red));
 	}
 }
-void LevelCreator::Level1to5(Ball* oBall) {
+void LevelCreator::Level1to5() {
 	_vBrickFolder[0]->SetPostion(50, 50);
 	int w = 50;
 	int h = 50;

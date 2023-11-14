@@ -31,24 +31,24 @@ void Ball::Movement(float fDeltaTime)
 
 bool Ball::WindowCollider()
 {
-	if ( _iPosX + _iWidth > _pWindow->getSize().x )
+	if ( GetPosition().x + _iWidth > _pWindow->getSize().x)
 	{
 		std::cout << "colide a droit connard";
 		return true;
 	}
-	else if (_iPosX < 0)
+	else if (GetPosition().x < 0)
 	{
 		std::cout << "colide a gauche connard";
 		return true;
 	}
 
 
-	if (_iPosY + _iHeight > _pWindow->getSize().y)
+	if (GetPosition().y + _iHeight > _pWindow->getSize().y)
 	{
 		std::cout << "colide en haut connard";
 		return true;
 	}
-	else if (_iPosY < 0)
+	else if (GetPosition().y < 0)
 	{
 		std::cout << "colide en bas connard";
 		return true;
@@ -58,19 +58,19 @@ bool Ball::WindowCollider()
 
 bool Ball::BlocCollider(Brick* pBrick)
 {
-	std::vector<int> vAllPos = pBrick->GetAllPos();
+	std::vector<float> vAllPos = pBrick->GetAllPos();
 	bool GetMath = false;
 	if (_iWidth  < vAllPos[2] - vAllPos[0]) {
-		GetMath = Math::IsInside(_iPosX, vAllPos[0], vAllPos[2]);
+		GetMath = Math::IsInside(GetPosition().x, vAllPos[0], vAllPos[2]);
 		if (GetMath == false) {
-			GetMath = Math::IsInside(_iPosX + _iWidth, vAllPos[0], vAllPos[2]);
+			GetMath = Math::IsInside(GetPosition().x + _iWidth, vAllPos[0], vAllPos[2]);
 		}
 	}
 	else 
 	{
-		GetMath = Math::IsInside(vAllPos[0], _iPosX, _iPosX + _iWidth);
+		GetMath = Math::IsInside(vAllPos[0], GetPosition().x, GetPosition().x + _iWidth);
 		if (GetMath == false) {
-			GetMath = Math::IsInside(vAllPos[2], _iPosX, _iPosX + _iWidth);
+			GetMath = Math::IsInside(vAllPos[2], GetPosition().x, GetPosition().x + _iWidth);
 		}
 	}
 
@@ -80,16 +80,16 @@ bool Ball::BlocCollider(Brick* pBrick)
 	else
 	{
 		if (_iHeight < vAllPos[3] - vAllPos[1]) {
-			GetMath = Math::IsInside(_iPosY, vAllPos[1], vAllPos[3]);
+			GetMath = Math::IsInside(GetPosition().y, vAllPos[1], vAllPos[3]);
 			if (GetMath == false) {
-				GetMath = Math::IsInside(_iPosY + _iHeight, vAllPos[1], vAllPos[3]);
+				GetMath = Math::IsInside(GetPosition().y + _iHeight, vAllPos[1], vAllPos[3]);
 			}
 		}
 		else
 		{
-			GetMath = Math::IsInside(vAllPos[1], _iPosY, _iPosY + _iHeight);
+			GetMath = Math::IsInside(vAllPos[1], GetPosition().y, GetPosition().y + _iHeight);
 			if (GetMath == false) {
-				GetMath = Math::IsInside(vAllPos[3], _iPosY, _iPosY + _iHeight);
+				GetMath = Math::IsInside(vAllPos[3], GetPosition().y, GetPosition().y + _iHeight);
 			}
 		}
 	}

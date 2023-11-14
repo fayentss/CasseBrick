@@ -3,7 +3,7 @@ Brick::Brick(sf::RenderWindow* pWindow, int iWidth, int iHeight, int iPosX, int 
 {
 
 };
-std::vector<int> Brick::GetAllPos()
+std::vector<float> Brick::GetAllPos()
 {
 	/*
 	* l'empacement :
@@ -12,11 +12,11 @@ std::vector<int> Brick::GetAllPos()
 	* 2 c'est iWidth
 	* 3 c'est iHeight
 	*/
-	std::vector<int> Allpos{
-		_iPosX,
-		_iPosY,
-		_iWidth + _iPosX,
-		_iHeight + _iPosY
+	std::vector<float> Allpos{
+		GetPosition().x,
+		GetPosition().y,
+		_iWidth + GetPosition().x,
+		_iHeight + GetPosition().y
 	};
 	return Allpos;
 };

@@ -3,7 +3,7 @@
 class Brick : public GameObj
 {
 public:
-	std::vector<int> GetAllPos();
+	std::vector<float> GetAllPos();
 	Brick(sf::RenderWindow* pWindow, int iWidth, int iHeight, int iPosX, int iPosY, sf::Color cColor);
 	//sf::Vector2f GetBrick();
 };

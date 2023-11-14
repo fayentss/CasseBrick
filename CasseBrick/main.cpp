@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 
     float fDeltaTime = 0;
 
-    oLevel->Level1to5()
+    oLevel->Level1to5();
     //GameLoop
     while (oWindow.isOpen())
     {
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
-        oBall->Movement(fDeltaTime);
+        /*oBall->Movement(fDeltaTime);
         if (oBall->WindowCollider() == true)
         {
             sf::Vector2f vDirectionNull;
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
             sf::Vector2f vDirectionNull;
             vDirectionNull.x = 0;
             vDirectionNull.y = 0;
-            oBall->IsMoving(false, vDirectionNull);
+            oBall->IsMoving(false, vDirectionNull);*/
         for (int i = 0; i < oCanon->GetBallList().size(); i++)
         {
             oCanon->GetBallList()[i]->Movement(fDeltaTime);

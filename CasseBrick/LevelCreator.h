@@ -10,6 +10,6 @@ private:
 	sf::RenderWindow* _pWindow;
 public:	
 	LevelCreator(sf::RenderWindow* pWindow);
-	void Level1to5(Ball* oBall);//cette fonctione ne fonctionne qu'avec le builder ci-dessus
+	void Level1to5();//cette fonctione ne fonctionne qu'avec le builder ci-dessus
 };
 

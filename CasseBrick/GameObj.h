@@ -12,7 +12,6 @@ private:
 protected:
 	bool _bEnable;
 
-	bool _bEnable;
 	float _iWidth;
 	float _iHeight;
 
