@@ -9,10 +9,9 @@
 int main(int argc, char** argv)
 {
     //Cr�ation d'une fen�tre
-    sf::RenderWindow oWindow(sf::VideoMode(1280, 720), "SFML");
+    sf::RenderWindow oWindow(sf::VideoMode(1920, 1080), "SFML");
     
     LevelCreator* oLevel = new LevelCreator(&oWindow);
-    GameObj* oRect = new GameObj(&oWindow, 20.f, 40.f, 50.f, 50.f, sf::Color::Red);
     Canon* oCanon = new Canon(&oWindow, sf::Color::Yellow);
     
 
@@ -44,7 +43,7 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
-        /*oBall->Movement(fDeltaTime);
+        /*
         if (oBall->WindowCollider() == true)
         {
             sf::Vector2f vDirectionNull;
@@ -65,14 +64,12 @@ int main(int argc, char** argv)
 
         //DRAW
         oWindow.clear();
-
-        oRect->Draw();
-        oCanon->Draw();
         
         for (int i = 0; i < oCanon->GetBallList().size(); i++)
         {
             oCanon->GetBallList()[i]->Draw();
         }
+        oCanon->Draw();
 
         oWindow.display();
 
