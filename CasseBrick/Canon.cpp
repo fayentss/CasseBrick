@@ -24,13 +24,12 @@ void Canon::UpdateRot()
 
 	float fAngle = (atan(fO / fA) * (180 / 3.1415));
 
-	if (vMousePos.x <= vCanonPoint.x)
+	if (vMousePos.y < vCanonPoint.y - (0.4 * GetSize().y))
 	{
-		SetRotation(-fAngle + 90);
-	}
-	else
-	{
-		SetRotation(-fAngle - 90);
+		if (vMousePos.x <= vCanonPoint.x)
+			SetRotation(-fAngle - 270);
+		else
+			SetRotation(-fAngle - 90);
 	}
 }
 
@@ -45,6 +44,9 @@ void Canon::ShootBall()
 
 	sf::Vector2i vMousePos = sf::Mouse::getPosition(*_pWindow);
 	sf::Vector2f vCanonPos = GetPosition();
+
+	if (vMousePos.y > GetPosition().y - (0.4 * GetSize().y))
+		return;
 
 	sf::Vector2f vDirection;
 	vDirection.x = vMousePos.x - vCanonPos.x;

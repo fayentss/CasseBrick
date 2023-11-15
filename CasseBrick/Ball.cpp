@@ -65,8 +65,6 @@ void Ball::WindowCollider()
 	}
 };
 
-
-
 void Ball::BlocCollider(Brick* pBrick)
 {
 	bool GetMath = false;
@@ -111,3 +109,4 @@ void Ball::BlocCollider(Brick* pBrick)
 	if (GetMath == true)
 		_bIsMoving = false;
 }
+

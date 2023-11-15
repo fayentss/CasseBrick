@@ -6,14 +6,11 @@
 class GameObj
 {
 private:
-	sf::Color _cColor;
 	sf::Shape* _pShape;
 	float _iWidth;
 	float _iHeight;
 
 protected:
-	bool _bEnable;
-
 
 	sf::RenderWindow* _pWindow;
 
@@ -35,6 +32,7 @@ public:
 	void SetRotation(float fAngle);
 	sf::Vector2f GetSize();
 	void SetOrigine(float iPosX, float iPosY);
+	void SetColor(sf::Color cColor);
 };
 
 

@@ -6,11 +6,13 @@
 class LevelCreator
 {
 private:
-	std::vector<Brick*> _vBrickFolder;
 	sf::RenderWindow* _pWindow;
+	std::vector<Brick*> _vBrickList;
 public:	
 	LevelCreator(sf::RenderWindow* pWindow);
-	void Level1to5();//cette fonctione ne fonctionne qu'avec le builder ci-dessus
-	std::vector<Brick*> GetvBrick();
+	void Level1();//cette fonctione ne fonctionne qu'avec le builder ci-dessus
+	std::vector<Brick*> GetBrick();
+	void AddBrick(Brick* pBrick);
+	void DeleteBrick(int BrickID);
 };
 
