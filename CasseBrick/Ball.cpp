@@ -23,7 +23,8 @@ void Ball::Movement(float fDeltaTime)
 {
 	if (_bIsMoving == true)
 	{
-
+		fLastX = GetPosition().x;
+		fLastY = GetPosition().y;
 		float fNewX = GetPosition().x + (_vDirection.x * 350) * fDeltaTime;
 		float fNewY = GetPosition().y + (_vDirection.y * 350) * fDeltaTime;
 		SetPostion(fNewX, fNewY);
@@ -75,6 +76,7 @@ void Ball::BlocCollider(Brick* pBrick)
 	sf::Vector2f fBrickSize = pBrick->GetSize();
 	sf::Vector2f fBallPos = GetPosition();
 	sf::Vector2f fBallSize = GetSize();
+	
 
 	if (fBallSize.x < fBrickSize.x)
 	{
@@ -109,5 +111,10 @@ void Ball::BlocCollider(Brick* pBrick)
 	}
 
 	if (GetMath == true)
-		_bIsMoving = false;
+	{
+		float m;
+		float b;
+		m = (fBallPos.y - fLastY) / (fBallPos.x - fLastX);
+
+	}
 }

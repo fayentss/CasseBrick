@@ -8,6 +8,10 @@ private:
 	bool _bIsMoving;
 	sf::Vector2f _vDirection;
 
+	float fLastX;
+	float fLastY;
+
+
 public:
 	Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor);
 	sf::Vector2f GetBallDirection();
