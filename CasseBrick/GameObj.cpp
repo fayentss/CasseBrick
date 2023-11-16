@@ -1,38 +1,47 @@
 #include "GameObj.h"
+#include "GameObjManager.h"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
 
-GameObj::GameObj(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor)
+GameObj::GameObj(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fDiametre, float fPosX, float fPosY, sf::Color cColor)
 {
-	_iWidth = iDiametre;
-	_iHeight = iDiametre;
+	_fWidth = fDiametre;
+	_fHeight = fDiametre;
 
 	_pWindow = pWindow;
-	_pShape = new sf::CircleShape(iDiametre);
-	_pShape->setPosition(iPosX, iPosY);
-	_pShape->setFillColor(_cColor);
-};
-
-GameObj::GameObj(sf::RenderWindow* pWindow, float iWidth, float iHeight, float iPosX, float iPosY, sf::Color cColor)
-{
-	_iWidth = iWidth;
-	_iHeight = iHeight;
-
-	_pWindow = pWindow;
-	_pShape = new sf::RectangleShape(sf::Vector2f(iWidth, iHeight));
-	_pShape->setPosition(iPosX, iPosY);
+	_pObjManager = pObjManager;
+	_pShape = new sf::CircleShape(fDiametre);
+	_pShape->setPosition(fPosX, fPosY);
 	_pShape->setFillColor(cColor);
 };
+
+GameObj::GameObj(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fWidth, float fHeight, float fPosX, float fPosY, sf::Color cColor)
+{
+	_fWidth = fWidth;
+	_fHeight = fHeight;
+
+	_pWindow = pWindow;
+	_pObjManager = pObjManager;
+	_pShape = new sf::RectangleShape(sf::Vector2f(fWidth, fHeight));
+	_pShape->setPosition(fPosX, fPosY);
+	_pShape->setFillColor(cColor);
+};
+
+
+GameObj::~GameObj()
+{
+	int a = 0;
+}
 
 sf::Vector2f GameObj::GetPosition()
 {
 	return _pShape->getPosition();
 };
 
-void GameObj::SetPostion(float iPosX, float iPosY)
+void GameObj::SetPostion(float fPosX, float fPosY)
 {
-	_pShape->setPosition(iPosX, iPosY);
+	_pShape->setPosition(fPosX, fPosY);
 }
 
 float GameObj::GetRotation()
@@ -47,12 +56,12 @@ void GameObj::SetRotation(float fAngle)
 
 sf::Vector2f GameObj::GetSize()
 {
-	return sf::Vector2f(_iWidth, _iHeight);
+	return sf::Vector2f(_fWidth, _fHeight);
 }
 
-void GameObj::SetOrigine(float iPosX, float iPosY)
+void GameObj::SetOrigine(float fPosX, float fPosY)
 {
-	_pShape->setOrigin(iPosX, iPosY);
+	_pShape->setOrigin(fPosX, fPosY);
 }
 
 void GameObj::SetColor(sf::Color cColor)

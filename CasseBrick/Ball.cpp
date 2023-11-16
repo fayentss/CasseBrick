@@ -2,10 +2,13 @@
 #include "GameObj.h"
 #include <iostream>
 #include "Math.h"
+#include "Canon.h"
+#include "GameObjManager.h"
 
-Ball::Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, iPosX, iPosY, cColor)
+Ball::Ball(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fDiametre, float fPosX, float fPosY, Canon* pCanon) : GameObj(pWindow, pObjManager, fDiametre, fPosX, fPosY, sf::Color::White)
 {
 	_bIsMoving = false;
+	_pCanon = pCanon;
 }
 
 sf::Vector2f Ball::GetBallDirection()
@@ -107,6 +110,13 @@ void Ball::BlocCollider(Brick* pBrick)
 	}
 
 	if (GetMath == true)
-		_bIsMoving = false;
+	{
+		pBrick->TakeDamage(1);
+		_pObjManager->AddObjToDelete(this);
+	}
 }
 
+Ball::~Ball()
+{
+	_pCanon->DeleteBall(this);
+}

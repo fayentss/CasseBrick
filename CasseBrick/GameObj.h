@@ -3,22 +3,28 @@
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+
+class GameObjManager;
+
 class GameObj
 {
 private:
 	sf::Shape* _pShape;
-	float _iWidth;
-	float _iHeight;
+	float _fWidth;
+	float _fHeight;
 
 protected:
 
 	sf::RenderWindow* _pWindow;
+	GameObjManager* _pObjManager;
 
 public:
 	
 
-	GameObj(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY, sf::Color cColor); //cercle
-	GameObj(sf::RenderWindow* pWindow , float iWidth, float iHeight, float iPosX, float iPosY, sf::Color cColor); //Rect
+	GameObj(sf::RenderWindow* pWindow, GameObjManager* _pObjManager, float fDiametre, float fPosX, float fPosY, sf::Color cColor); //cercle
+	GameObj(sf::RenderWindow* pWindow, GameObjManager* _pObjManager, float fWidth, float fHeight, float fPosX, float fPosY, sf::Color cColor); //Rect
+
+	virtual ~GameObj();
 
 	void Draw() 
 	{
@@ -26,12 +32,11 @@ public:
 	}
 
 	sf::Vector2f GetPosition();
-	sf::Vector2f GetPositionTopLeft();
-	void SetPostion(float iPosX, float iPosY);
+	void SetPostion(float fPosX, float fPosY);
 	float GetRotation();
 	void SetRotation(float fAngle);
 	sf::Vector2f GetSize();
-	void SetOrigine(float iPosX, float iPosY);
+	void SetOrigine(float fPosX, float fPosY);
 	void SetColor(sf::Color cColor);
 };
 

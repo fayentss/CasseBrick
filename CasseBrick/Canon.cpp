@@ -6,9 +6,10 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Window/Mouse.hpp>
 
-Canon::Canon(sf::RenderWindow* pWindow, sf::Color cColor) : GameObj(pWindow, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.1, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.1, cColor)
+Canon::Canon(sf::RenderWindow* pWindow, GameObjManager* pObjManager, sf::Color cColor) : GameObj(pWindow, pObjManager, pWindow->getSize().x * 0.05, (pWindow->getSize().x * 0.1)*1.1, pWindow->getSize().x / 2, pWindow->getSize().y - pWindow->getSize().y * 0.1, cColor)
 {
 	SetOrigine(GetSize().x / 2, GetSize().y * (3 / 4));
+	_oClock.restart();
 }
 
 void Canon::UpdateRot()
@@ -33,35 +34,45 @@ void Canon::UpdateRot()
 	}
 }
 
-std::vector<Ball*> Canon::GetBallList()
+const std::vector<Ball*>& Canon::GetBallList() const
 {
 	return _vBallList;
+}
+void Canon::DeleteBall(Ball* pBall)
+{
+	_vBallList.erase(std::remove(_vBallList.begin(), _vBallList.end(), pBall), _vBallList.end());
 }
 
 void Canon::ShootBall()
 {
-	float iBallDiametre = 20;
+	if (_oClock.getElapsedTime().asSeconds() >= 1)
+	{
+		float fBallDiametre = 20;
 
-	sf::Vector2i vMousePos = sf::Mouse::getPosition(*_pWindow);
-	sf::Vector2f vCanonPos = GetPosition();
+		sf::Vector2i vMousePos = sf::Mouse::getPosition(*_pWindow);
+		sf::Vector2f vCanonPos = GetPosition();
 
-	if (vMousePos.y > GetPosition().y - (0.4 * GetSize().y))
-		return;
+		if (vMousePos.y > GetPosition().y - (0.4 * GetSize().y))
+			return;
 
-	sf::Vector2f vDirection;
-	vDirection.x = vMousePos.x - vCanonPos.x;
-	vDirection.y = vMousePos.y - vCanonPos.y;
+		sf::Vector2f vDirection;
+		vDirection.x = vMousePos.x - vCanonPos.x;
+		vDirection.y = vMousePos.y - vCanonPos.y;
 
-	float fNorme = sqrt((vDirection.x * vDirection.x) + (vDirection.y * vDirection.y));
+		float fNorme = sqrt((vDirection.x * vDirection.x) + (vDirection.y * vDirection.y));
 
-	vDirection.x = vDirection.x / fNorme;
-	vDirection.y = vDirection.y / fNorme;
+		vDirection.x = vDirection.x / fNorme;
+		vDirection.y = vDirection.y / fNorme;
 
-	sf::Vector2f vBallPos;
-	vBallPos.x = GetPosition().x - iBallDiametre + (vDirection.x * (GetSize().y * 0.9));
-	vBallPos.y = GetPosition().y + (vDirection.y * (GetSize().y * 0.9));
+		sf::Vector2f vBallPos;
+		vBallPos.x = GetPosition().x - fBallDiametre + (vDirection.x * (GetSize().y * 0.9));
+		vBallPos.y = GetPosition().y + (vDirection.y * (GetSize().y * 0.9));
 
-	Ball* oBall = new Ball(_pWindow, iBallDiametre, vBallPos.x, vBallPos.y, sf::Color::Green);
-	_vBallList.push_back(oBall);
-	oBall->IsMoving(true, vDirection);
+		Ball* oBall = new Ball(_pWindow, _pObjManager, fBallDiametre, vBallPos.x, vBallPos.y, this);
+		_vBallList.push_back(oBall);
+		oBall->IsMoving(true, vDirection);
+
+		_oClock.restart();
+	}
+	
 }

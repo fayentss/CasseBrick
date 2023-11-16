@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObj.h"
+
+class LevelCreator;
 class Brick : public GameObj
 {
 private:
-	int _iID;
 	int _iHp;
+	LevelCreator* _pLevel;
 public:
-	Brick(sf::RenderWindow* pWindow, float iWidth, float iHeight, float iPosX, float iPosY, int iID);
+	Brick(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fWidth, float fHeight, float fPosX, float fPosY, LevelCreator* pLevel);
 	~Brick();
 	void TakeDamage(int iDamage);
 

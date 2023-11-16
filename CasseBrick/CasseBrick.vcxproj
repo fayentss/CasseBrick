@@ -134,6 +134,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Canon.cpp" />
     <ClCompile Include="GameObj.cpp" />
+    <ClCompile Include="GameObjManager.cpp" />
     <ClCompile Include="LevelCreator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Canon.h" />
     <ClInclude Include="GameObj.h" />
+    <ClInclude Include="GameObjManager.h" />
     <ClInclude Include="LevelCreator.h" />
     <ClInclude Include="Math.h" />
   </ItemGroup>

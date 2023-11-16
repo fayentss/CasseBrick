@@ -1,12 +1,14 @@
 #include "Brick.h"
-Brick::Brick(sf::RenderWindow* pWindow, float iWidth, float iHeight, float iPosX, float iPosY, int iID) : GameObj(pWindow, iWidth, iHeight, iPosX, iPosY, sf::Color(0, 255, 0))
+#include "LevelCreator.h"
+#include "GameObjManager.h"
+Brick::Brick(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fWidth, float fHeight, float fPosX, float fPosY, LevelCreator* pLevel) : GameObj(pWindow, pObjManager, fWidth, fHeight, fPosX, fPosY, sf::Color(0, 255, 0))
 {
 	_iHp = 5;
-	_iID = iID;
+	_pLevel = pLevel;
 };
 Brick::~Brick()
 {
-	
+	_pLevel->DeleteBrick(this);
 }
 void Brick::TakeDamage(int iDamage)
 {
@@ -15,7 +17,7 @@ void Brick::TakeDamage(int iDamage)
 	switch (_iHp)
 	{
 	case 0:
-		delete(this);
+		_pObjManager->AddObjToDelete(this);
 	case 1:
 		SetColor(sf::Color(255, 0, 0));
 	case 2:

@@ -1,3 +1,4 @@
+#include "GameObjManager.h"
 #include "GameObj.h"
 #include "Ball.h"
 #include "Canon.h"
@@ -10,13 +11,13 @@ int main(int argc, char** argv)
 {
     //Cr�ation d'une fen�tre
     sf::RenderWindow oWindow(sf::VideoMode(1920, 1080), "SFML");
-    
-    LevelCreator* oLevel = new LevelCreator(&oWindow);
-    Canon* oCanon = new Canon(&oWindow, sf::Color::Yellow);
+    GameObjManager* ObjManager = new GameObjManager();
+    LevelCreator* oLevel = new LevelCreator(&oWindow, ObjManager);
+    Canon* oCanon = new Canon(&oWindow, ObjManager, sf::Color::Yellow);
+    oLevel->Level1();
 
     float fDeltaTime = 0;
 
-    oLevel->Level1to5();
     //GameLoop
     while (oWindow.isOpen())
     {
@@ -41,25 +42,42 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
-        for (int i = 0; i < oCanon->GetBallList().size(); i++) 
+        const std::vector<Ball*>& oBalls = oCanon->GetBallList();
+        for (int i = 0; i < oBalls.size(); i++)
         {
-            oCanon->GetBallList()[i]->Movement(fDeltaTime);
+            Ball* pBall = oBalls[i];
+            pBall->Movement(fDeltaTime);
+            pBall->WindowCollider();
 
-            oCanon->GetBallList()[i]->WindowCollider();
-
-            
-            for (int j = 0; j < oLevel->GetvBrick().size(); j++) 
+            const std::vector<Brick*>& oBricks = oLevel->GetBrick();
+            for (int j = 0; j < oBricks.size(); j++) 
             {
-                oCanon->GetBallList()[i]->BlocCollider(oLevel->GetvBrick()[j]);
+                Brick* pBrick = oBricks[j];
+                pBall->BlocCollider(pBrick);
             }
-            
+        }
+
+        //Check to destroy
+        const std::vector<GameObj*>& vObjToDelete = ObjManager->GetObjToDelete();
+        for (int i = 0; i < vObjToDelete.size(); i++)
+        {
+            GameObj* pToDelete = vObjToDelete[i];
+            ObjManager->DeleteObjToDelete(pToDelete);
+            delete pToDelete;
         }
 
         //DRAW
         oWindow.clear();
-        for (int j = 0; j < oLevel->GetvBrick().size(); j++)
+
+        std::vector<int*> test;
+        int blabla = 3;
+        test.push_back(&blabla);
+        test.erase(std::remove(test.begin(), test.end(), &blabla), test.end());
+        int n = test.size();
+
+        for (int i = 0; i < oLevel->GetBrick().size(); i++)
         {
-            oLevel->GetvBrick()[j]->Draw();
+            oLevel->GetBrick()[i]->Draw();
         }
         
         oCanon->Draw();
@@ -68,7 +86,6 @@ int main(int argc, char** argv)
         {
             oCanon->GetBallList()[i]->Draw();
         }
-        oCanon->Draw();
 
         oWindow.display();
 

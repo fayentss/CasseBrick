@@ -1,34 +1,32 @@
 #include "LevelCreator.h"
 
 
-LevelCreator::LevelCreator(sf::RenderWindow* pWindow)
+LevelCreator::LevelCreator(sf::RenderWindow* pWindow, GameObjManager* pObjManager)
 {
 	_pWindow = pWindow;
+	_pObjManager = pObjManager;
 }
 
 void LevelCreator::Level1() 
 {
-	_vBrickList[0]->SetPostion(50, 50);
-	int w = 50;
-	int h = 50;
-	for (int i = 1; i < 15; i++)
+	int iOffset = 10;
+	for (int j = 0; j < 5; j++)
 	{
-		w = w + 85;
-		_vBrickList[i]->SetPostion(w, h);
+		for (int i = 0; i < 20; i++)
+		{
+			float fWidth = (_pWindow->getSize().x - (21 * iOffset))/20;
+			float fHeight = 0.4 * fWidth;
+			Brick* oBrick = new Brick(_pWindow, _pObjManager, fWidth, fHeight, iOffset + (fWidth * i) + (iOffset * i), iOffset + (fHeight * j) + (iOffset * j), this);
+			_vBrickList.push_back(oBrick);
+		}
 	}
 }
 
-std::vector<Brick*> LevelCreator::GetBrick()
+const std::vector<Brick*>& LevelCreator::GetBrick() const
 {
 	return _vBrickList;
 }
-
-void LevelCreator::AddBrick(Brick* pBrick)
+void LevelCreator::DeleteBrick(Brick* pBrick)
 {
-	_vBrickList.push_back(pBrick);
-}
-
-void LevelCreator::DeleteBrick(int BrickID)
-{
-	_vBrickList.erase(_vBrickList.begin()+BrickID);
+	_vBrickList.erase(std::remove(_vBrickList.begin(), _vBrickList.end(), pBrick), _vBrickList.end());
 }
