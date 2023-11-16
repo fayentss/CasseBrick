@@ -7,10 +7,21 @@ bool Math::IsInside(int v, int vMin, int vMax)
 	else 
 		return false;
 };
-float Math::CoefM(std::vector<float> PointA, std::vector<float> PointB) 
+
+Math::Segment Math::CreateSegment(sf::Vector2f a, sf::Vector2f b) 
 {
-	//[0] = x; [1] = y; 
-	float result;
-	result = (PointB[1] - PointA[1]) / (PointB[0] - PointA[0]);
-	return result;
+	Math::Segment result;
+	result._sfA = (b.y - a.y) / (b.x - a.x);
+	result._sfB = a.y - result._sfA * a.x;
+};
+sf::Vector2f Intersection(Math::Segment CourbeBall, Math::Segment CourbeBrick)
+{
+	float Interx;
+	float Intery;
+	Interx = (CoefMDeux - CoefMUn) / (OrigineBUn - OrigineBDeux);
+	Intery = CoefMUn * Interx + OrigineBUn;
+	sf::Vector2f Inter;
+	Inter.x = Interx;
+	Inter.y = Intery;
+	return Inter;
 };

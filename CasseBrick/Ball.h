@@ -7,9 +7,7 @@ class Ball : public GameObj
 private:
 	bool _bIsMoving;
 	sf::Vector2f _vDirection;
-
-	float fLastX;
-	float fLastY;
+	sf::Vector2f _vLastPos;
 
 
 public:
