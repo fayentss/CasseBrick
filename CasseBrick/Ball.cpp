@@ -11,7 +11,7 @@ struct Point
 	float y;
 };
 
-Ball::Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, iPosX, iPosY, cColor)
+Ball::Ball(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fDiametre, float fPosX, float fPosY, Canon* pCanon) : GameObj(pWindow, pObjManager, fDiametre, fPosX, fPosY, sf::Color::White)
 {
 	_bIsMoving = false;
 	_pCanon = pCanon;
@@ -72,6 +72,7 @@ void Ball::WindowCollider()
 	else if (fBallPos.y < 0)
 	{
 		//delete;
+		_pObjManager->AddObjToDelete(this);
 	}
 };
 
@@ -119,6 +120,7 @@ void Ball::BlocCollider(Brick* pBrick)
 
 	if (GetMath == true)
 	{
+		std::cout << "Colide";
 		//by the way, quand tu regardera comment fonctionne les fonction car je sais que tu vas look petit chenipan, PointA doit �tre for��ment _vLastPos et point B doit �tre forc�ment la pos actuelle (celle qui a colide)
 		//car je sais tu vas pleurait, dans les nom de variable, H c'est en haut, D a droite, G a gauche, B en bas, donc si tu connecte tout les neurone enssemble HG sa fait ? et oui en haut a gauche hihi aled
 		std::vector<Math::Segment> Allbrick;
@@ -178,19 +180,26 @@ void Ball::BlocCollider(Brick* pBrick)
 			{
 				if (i == 0) {
 					//colide face du haut
+					Bounce("Bot");
+					pBrick->TakeDamage(1);
 				}
 				else if (i == 1) {
 					//colide face du gauche
+					Bounce("Right");
+					pBrick->TakeDamage(1);
 				}
 				else if (i == 2) {
 					//colide face du droite
+					Bounce("Left");
+					pBrick->TakeDamage(1);
 				}
 				else if (i == 3) {
 					//colide face du bas
+					Bounce("Top");
+					pBrick->TakeDamage(1);
 				}
 			}
 		}
-		pBrick->TakeDamage(1);
 	}
 }
 

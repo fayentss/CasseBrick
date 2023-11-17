@@ -54,7 +54,7 @@ Math::Segment Math::Intersection(std::vector<Math::Segment> CourbeBall, std::vec
 		sf::Vector2f Point;
 		float ResultFromDE;
 	};
-	Math::Segment Resulteallezstptumecasselescouille;
+	Math::Segment Resulte;
 	float Result = 0;
 	sf::Vector2f Inter;
 	std::vector<Vector2fSegment> RecupInter; 
@@ -100,9 +100,9 @@ Math::Segment Math::Intersection(std::vector<Math::Segment> CourbeBall, std::vec
 			RecupInter[j].ResultFromDE = (Math::DivisionEclidien(CourbeBall[i]._svP1, RecupInter[j].Point));
 			if (RecupInter[j].ResultFromDE < distance) {
 				distance = RecupInter[j].ResultFromDE;
-				Resulteallezstptumecasselescouille = RecupInter[j].SegmentBrickRebon;
+				Resulte = RecupInter[j].SegmentBrickRebon;
 			}
 		}
 	}
-	return Resulteallezstptumecasselescouille;
+	return Resulte;
 };
