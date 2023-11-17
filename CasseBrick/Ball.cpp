@@ -151,25 +151,43 @@ void Ball::BlocCollider(Brick* pBrick)
 		brick._svP1 = fBrickPos;
 		brick._svP2.x = fBrickPos.x + fBrickSize.x;
 		brick._svP2.y = fBrickPos.y;
-		Allbrick.push_back(brick);
+		Allbrick.push_back(brick);//face du haut
 
 		brick._svP1 = fBrickPos;
 		brick._svP2.x = fBrickPos.x;
 		brick._svP2.y = fBrickPos.y + fBrickSize.y;
-		Allbrick.push_back(brick);
+		Allbrick.push_back(brick);//face de gauche
 
 		brick._svP1.x = fBrickPos.x + fBrickSize.x;
 		brick._svP1.y = fBrickPos.y;
 		brick._svP2.x = fBrickPos.x + fBrickSize.x;
 		brick._svP2.y = fBrickPos.y + fBrickSize.y;
-		Allbrick.push_back(brick);
+		Allbrick.push_back(brick);//face de droite
 
 		brick._svP1.x = fBrickPos.x + fBrickSize.x;
 		brick._svP1.y = fBrickPos.y + fBrickSize.y;
 		brick._svP2.x = fBrickPos.x;
 		brick._svP2.y = fBrickPos.y + fBrickSize.y;
-		Allbrick.push_back(brick);
+		Allbrick.push_back(brick);//face de bas
 
-		Math::Intersection(AllBall, Allbrick);
+		Math::Segment Translator = Math::Intersection(AllBall, Allbrick);
+		for (int i = 0; i < Allbrick.size(); i++)
+		{
+			if(Translator._svP1 == Allbrick[i]._svP1 && Translator._svP2 == Allbrick[i]._svP2)
+			{
+				if (i == 0) {
+					//colide face du haut
+				}
+				else if (i == 1) {
+					//colide face du gauche
+				}
+				else if (i == 2) {
+					//colide face du droite
+				}
+				else if (i == 3) {
+					//colide face du bas
+				}
+			}
+		}
 	}
 }
