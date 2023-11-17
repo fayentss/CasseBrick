@@ -90,6 +90,13 @@ int main(int argc, char** argv)
         oWindow.display();
 
         fDeltaTime = oClock.restart().asSeconds();
+
+        //WinCheck
+        if (oLevel->GetBrick().size() == 0)
+        {
+            std::cout << "You Win" << std::endl;
+            oWindow.close();
+        }
     }
 
     return 0;
