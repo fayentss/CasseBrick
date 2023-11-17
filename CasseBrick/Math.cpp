@@ -21,7 +21,7 @@ float Math::FindCoeffInvers(sf::Vector2f A, sf::Vector2f B)
 	vector = A - B;
 	return(vector.y / vector.x);
 }
-sf::Vector2f Math::GetInterPoint(sf::Vector2f Previous, sf::Vector2f Next, Brick* pBrick,const char* side ,float Coeff)
+sf::Vector2f Math::GetInterPoint(sf::Vector2f Previous, sf::Vector2f Next, Brick* pBrick,const char* side)
 {
 	if (side == "Top")
 	{

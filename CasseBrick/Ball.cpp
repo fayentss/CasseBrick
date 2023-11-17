@@ -62,9 +62,10 @@ void Ball::WindowCollider()
 		Bounce("Top");
 	}
 	//Bot Colision 
-	else if (fBallPos.y < 0)
+	else if (fBallPos.y > _pWindow->getSize().y)
 	{
 		//delete;
+		_pObjManager->AddObjToDelete(this);
 	}
 };
 
@@ -97,48 +98,41 @@ void Ball::FaceDetection(Brick* pBrick)
 	NextPos.vBotRight.x = GetPosition().x + GetSize().x;
 	NextPos.vBotRight.y = GetPosition().y + GetSize().y;
 
-	float Coeff = Math::FindCoeff(PreviousPos.vTopLeft, NextPos.vTopLeft);
-	float CoeffInvers = Math::FindCoeffInvers(PreviousPos.vTopLeft, NextPos.vTopLeft);
-
 	std::vector<Math::Point_Info> vValidePoint;
 
 	///TopLeft
-	sf::Vector2f vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft,pBrick,"Top",Coeff);
+	sf::Vector2f vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft,pBrick,"Top");
 	if (Math::InterPointExist(vTmp,pBrick,"Top") == true)
 	{
 		Math::Point_Info TopLeftColTop;
-		TopLeftColTop.fCoeff = Coeff;
 		TopLeftColTop.cSideTouch = "Top";
 		TopLeftColTop.vCoordPoint = vTmp;
 		TopLeftColTop.Norme = Math::FindNorme( PreviousPos.vTopLeft, vTmp);
 		vValidePoint.push_back(TopLeftColTop);
 	}
 
-	vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft, pBrick, "Bot", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft, pBrick, "Bot");
 	if (Math::InterPointExist(vTmp, pBrick, "Bot") == true)
 	{
 		Math::Point_Info TopLeftColBot;
-		TopLeftColBot.fCoeff = Coeff;
 		TopLeftColBot.cSideTouch = "Bot";
 		TopLeftColBot.vCoordPoint = vTmp;
 		TopLeftColBot.Norme = Math::FindNorme(PreviousPos.vTopLeft, vTmp);
 		vValidePoint.push_back(TopLeftColBot);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft, pBrick, "Left", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft, pBrick, "Left");
 	if (Math::InterPointExist(vTmp, pBrick, "Left") == true)
 	{
 		Math::Point_Info TopLeftColLeft;
-		TopLeftColLeft.fCoeff = CoeffInvers;
 		TopLeftColLeft.cSideTouch = "Left";
 		TopLeftColLeft.vCoordPoint = vTmp;
 		TopLeftColLeft.Norme = Math::FindNorme(PreviousPos.vTopLeft, vTmp);
 		vValidePoint.push_back(TopLeftColLeft);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft, pBrick, "Right", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopLeft, NextPos.vTopLeft, pBrick, "Right");
 	if (Math::InterPointExist(vTmp, pBrick, "Right") == true)
 	{
 		Math::Point_Info TopLeftColRight;
-		TopLeftColRight.fCoeff = CoeffInvers;
 		TopLeftColRight.cSideTouch = "Right";
 		TopLeftColRight.vCoordPoint = vTmp;
 		TopLeftColRight.Norme = Math::FindNorme(PreviousPos.vTopLeft, vTmp);
@@ -147,41 +141,37 @@ void Ball::FaceDetection(Brick* pBrick)
 
 
 	//TopRight
-	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Top", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Top");
 	if (Math::InterPointExist(vTmp, pBrick, "Top") == true)
 	{
 		Math::Point_Info TopRightColTop;
-		TopRightColTop.fCoeff = Coeff;
 		TopRightColTop.cSideTouch = "Top";
 		TopRightColTop.vCoordPoint = vTmp;
 		TopRightColTop.Norme = Math::FindNorme(PreviousPos.vTopRight, vTmp);
 		vValidePoint.push_back(TopRightColTop);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Bot", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Bot");
 	if (Math::InterPointExist(vTmp, pBrick, "Bot") == true)
 	{
 		Math::Point_Info TopRightColBot;
-		TopRightColBot.fCoeff = Coeff;
 		TopRightColBot.cSideTouch = "Bot";
 		TopRightColBot.vCoordPoint = vTmp;
 		TopRightColBot.Norme = Math::FindNorme(PreviousPos.vTopRight, vTmp);
 		vValidePoint.push_back(TopRightColBot);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Left", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Left");
 	if (Math::InterPointExist(vTmp, pBrick, "Left") == true)
 	{
 		Math::Point_Info TopRightColLeft;
-		TopRightColLeft.fCoeff = CoeffInvers;
 		TopRightColLeft.cSideTouch = "Left";
 		TopRightColLeft.vCoordPoint = vTmp;
 		TopRightColLeft.Norme = Math::FindNorme(PreviousPos.vTopRight, vTmp);
 		vValidePoint.push_back(TopRightColLeft);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Right", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vTopRight, NextPos.vTopRight, pBrick, "Right");
 	if (Math::InterPointExist(vTmp, pBrick, "Right") == true)
 	{
 		Math::Point_Info TopRightColRight;
-		TopRightColRight.fCoeff = CoeffInvers;
 		TopRightColRight.cSideTouch = "Right";
 		TopRightColRight.vCoordPoint = vTmp;
 		TopRightColRight.Norme = Math::FindNorme(PreviousPos.vTopRight, vTmp);
@@ -189,41 +179,37 @@ void Ball::FaceDetection(Brick* pBrick)
 	}
 
 	////BotLeft
-	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Top", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Top");
 	if (Math::InterPointExist(vTmp, pBrick, "Top") == true)
 	{
 		Math::Point_Info BotLeftColTop;
-		BotLeftColTop.fCoeff = Coeff;
 		BotLeftColTop.cSideTouch = "Top";
 		BotLeftColTop.vCoordPoint = vTmp;
 		BotLeftColTop.Norme = Math::FindNorme(PreviousPos.vBotLeft, vTmp);
 		vValidePoint.push_back(BotLeftColTop);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Bot", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Bot");
 	if (Math::InterPointExist(vTmp, pBrick, "Bot") == true)
 	{
 		Math::Point_Info BotLeftColBot;
-		BotLeftColBot.fCoeff = Coeff;
 		BotLeftColBot.cSideTouch = "Bot";
 		BotLeftColBot.vCoordPoint = vTmp;
 		BotLeftColBot.Norme = Math::FindNorme(PreviousPos.vBotLeft, vTmp);
 		vValidePoint.push_back(BotLeftColBot);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Left", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Left");
 	if (Math::InterPointExist(vTmp, pBrick, "Left") == true)
 	{
 		Math::Point_Info BotLeftColLeft;
-		BotLeftColLeft.fCoeff = CoeffInvers;
 		BotLeftColLeft.cSideTouch = "Left";
 		BotLeftColLeft.vCoordPoint = vTmp;
 		BotLeftColLeft.Norme = Math::FindNorme(PreviousPos.vBotLeft, vTmp);
 		vValidePoint.push_back(BotLeftColLeft);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Right", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotLeft, NextPos.vBotLeft, pBrick, "Right");
 	if (Math::InterPointExist(vTmp, pBrick, "Right") == true)
 	{
 		Math::Point_Info BotLeftColRight;
-		BotLeftColRight.fCoeff = CoeffInvers;
 		BotLeftColRight.cSideTouch = "Right";
 		BotLeftColRight.vCoordPoint = vTmp;
 		BotLeftColRight.Norme = Math::FindNorme(PreviousPos.vBotLeft, vTmp);
@@ -231,41 +217,37 @@ void Ball::FaceDetection(Brick* pBrick)
 	}
 
 	//BotRight
-	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Top", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Top");
 	if (Math::InterPointExist(vTmp, pBrick, "Top") == true)
 	{
 		Math::Point_Info BotRightColTop;
-		BotRightColTop.fCoeff = Coeff;
 		BotRightColTop.cSideTouch = "Top";
 		BotRightColTop.vCoordPoint = vTmp;
 		BotRightColTop.Norme = Math::FindNorme(PreviousPos.vBotRight, vTmp);
 		vValidePoint.push_back(BotRightColTop);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Bot", Coeff);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Bot");
 	if (Math::InterPointExist(vTmp, pBrick, "Bot") == true)
 	{
 		Math::Point_Info BotRightColBot;
-		BotRightColBot.fCoeff = Coeff;
 		BotRightColBot.cSideTouch = "Bot";
 		BotRightColBot.vCoordPoint = vTmp;
 		BotRightColBot.Norme = Math::FindNorme(PreviousPos.vBotRight, vTmp);
 		vValidePoint.push_back(BotRightColBot);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Left", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Left");
 	if (Math::InterPointExist(vTmp, pBrick, "Left") == true)
 	{
 		Math::Point_Info BotRightColLeft;
-		BotRightColLeft.fCoeff = CoeffInvers;
 		BotRightColLeft.cSideTouch = "Left";
 		BotRightColLeft.vCoordPoint = vTmp;
 		BotRightColLeft.Norme = Math::FindNorme(PreviousPos.vBotRight, vTmp);
 		vValidePoint.push_back(BotRightColLeft);
 	}
-	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Right", CoeffInvers);
+	vTmp = Math::GetInterPoint(PreviousPos.vBotRight, NextPos.vBotRight, pBrick, "Right");
 	if (Math::InterPointExist(vTmp, pBrick, "Right") == true)
 	{
 		Math::Point_Info BotRightColRight;
-		BotRightColRight.fCoeff = CoeffInvers;
 		BotRightColRight.cSideTouch = "Right";
 		BotRightColRight.vCoordPoint = vTmp;
 		BotRightColRight.Norme = Math::FindNorme(PreviousPos.vBotRight, vTmp);
