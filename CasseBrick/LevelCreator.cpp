@@ -1,6 +1,5 @@
 #include "LevelCreator.h"
 
-
 LevelCreator::LevelCreator(sf::RenderWindow* pWindow, GameObjManager* pObjManager)
 {
 	_pWindow = pWindow;
@@ -23,7 +22,6 @@ void LevelCreator::Level1()
 			_vBrickList.push_back(oBrick);
 		}
 	}
-	
 }
 
 const std::vector<Brick*>& LevelCreator::GetBrick() const

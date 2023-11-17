@@ -26,7 +26,7 @@ void Ball::Movement(float fDeltaTime)
 {
 	if (_bIsMoving == true)
 	{
-
+		_vLastPos = GetPosition();
 		float fNewX = GetPosition().x + (_vDirection.x * 350) * fDeltaTime;
 		float fNewY = GetPosition().y + (_vDirection.y * 350) * fDeltaTime;
 		SetPostion(fNewX, fNewY);
@@ -67,6 +67,47 @@ void Ball::WindowCollider()
 		//delete;
 	}
 };
+
+char Ball::FaceDetection(Brick* pBrick)
+{
+	Math::Square_Points PreviousPos;
+
+	PreviousPos.vTopLeft = _vLastPos;
+
+	PreviousPos.vTopRight.x = _vLastPos.x + GetSize().x;
+	PreviousPos.vTopRight.y = _vLastPos.y;
+
+	PreviousPos.vBotLeft.x = _vLastPos.x;
+	PreviousPos.vBotLeft.y = _vLastPos.y + GetSize().y;
+
+	PreviousPos.vBotRight.x = _vLastPos.x + GetSize().x;
+	PreviousPos.vBotRight.y = _vLastPos.y + GetSize().y;
+
+
+	Math::Square_Points NextPos;
+
+	NextPos.vTopLeft = GetPosition();
+
+	NextPos.vTopRight.x = GetPosition().x + GetSize().x;
+	NextPos.vTopRight.y = GetPosition().y;
+
+	NextPos.vBotLeft.x = GetPosition().x;
+	NextPos.vBotLeft.y = GetPosition().y + GetSize().y;
+
+	NextPos.vBotRight.x = GetPosition().x + GetSize().x;
+	NextPos.vBotRight.y = GetPosition().y + GetSize().y;
+
+	float Coeff = Math::FindCoeff(PreviousPos.vTopLeft, NextPos.vTopLeft);
+	float CoeffInvers = Math::FindCoeffInvers(PreviousPos.vTopLeft, NextPos.vTopLeft);
+
+	sf::Vector2f vTmp = Math::GetInterPoint(NextPos.vTopLeft,pBrick,"Top",Coeff);
+	if (Math::InterPointExist(vTmp,pBrick,"Top"))
+	{
+
+	}
+
+
+}
 
 void Ball::BlocCollider(Brick* pBrick)
 {
@@ -113,6 +154,7 @@ void Ball::BlocCollider(Brick* pBrick)
 	{
 		pBrick->TakeDamage(1);
 		_pObjManager->AddObjToDelete(this);
+		FaceDetection(pBrick);
 	}
 }
 
