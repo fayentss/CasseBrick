@@ -10,6 +10,7 @@ private:
 	bool _bIsMoving;
 	sf::Vector2f _vDirection;
 	Canon* _pCanon;
+	sf::Vector2f _vLastPos;
 
 public:
 	Ball(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float iDiametre, float iPosX, float iPosY, Canon* pCanon);

@@ -5,7 +5,13 @@
 #include "Canon.h"
 #include "GameObjManager.h"
 
-Ball::Ball(sf::RenderWindow* pWindow, GameObjManager* pObjManager, float fDiametre, float fPosX, float fPosY, Canon* pCanon) : GameObj(pWindow, pObjManager, fDiametre, fPosX, fPosY, sf::Color::White)
+struct Point 
+{
+	float x;
+	float y;
+};
+
+Ball::Ball(sf::RenderWindow* pWindow, float iDiametre, float iPosX, float iPosY,sf::Color cColor) : GameObj(pWindow, iDiametre, iPosX, iPosY, cColor)
 {
 	_bIsMoving = false;
 	_pCanon = pCanon;
@@ -26,7 +32,8 @@ void Ball::Movement(float fDeltaTime)
 {
 	if (_bIsMoving == true)
 	{
-
+		_vLastPos.x = GetPosition().x;
+		_vLastPos.y = GetPosition().y;
 		float fNewX = GetPosition().x + (_vDirection.x * 350) * fDeltaTime;
 		float fNewY = GetPosition().y + (_vDirection.y * 350) * fDeltaTime;
 		SetPostion(fNewX, fNewY);
@@ -76,6 +83,7 @@ void Ball::BlocCollider(Brick* pBrick)
 	sf::Vector2f fBrickSize = pBrick->GetSize();
 	sf::Vector2f fBallPos = GetPosition();
 	sf::Vector2f fBallSize = GetSize();
+	
 
 	if (fBallSize.x < fBrickSize.x)
 	{
@@ -111,12 +119,83 @@ void Ball::BlocCollider(Brick* pBrick)
 
 	if (GetMath == true)
 	{
+		//by the way, quand tu regardera comment fonctionne les fonction car je sais que tu vas look petit chenipan, PointA doit �tre for��ment _vLastPos et point B doit �tre forc�ment la pos actuelle (celle qui a colide)
+		//car je sais tu vas pleurait, dans les nom de variable, H c'est en haut, D a droite, G a gauche, B en bas, donc si tu connecte tout les neurone enssemble HG sa fait ? et oui en haut a gauche hihi aled
+		std::vector<Math::Segment> Allbrick;
+		std::vector<Math::Segment> AllBall;
+		Math::Segment brick;
+		Math::Segment Ball;
+		
+		Ball._svP1 = _vLastPos;
+		Ball._svP2 = fBallPos;
+		AllBall.push_back(Ball);
+
+		Ball._svP1.x = _vLastPos.x + fBallSize.x;
+		Ball._svP1.y = _vLastPos.y;
+		Ball._svP2.x = fBallPos.x + fBallSize.x;
+		Ball._svP2.y = fBallPos.y;
+		AllBall.push_back(Ball);
+
+		Ball._svP1.x = _vLastPos.x;
+		Ball._svP1.y = _vLastPos.y + fBallSize.y;
+		Ball._svP2.x = fBallPos.x;
+		Ball._svP2.y = fBallPos.y + fBallSize.y;
+		AllBall.push_back(Ball);
+
+		Ball._svP2.x = _vLastPos.x + fBallSize.x;
+		Ball._svP2.y = _vLastPos.y + fBallSize.y;
+		Ball._svP2.x = fBallPos.x + fBallSize.x;
+		Ball._svP2.y = fBallPos.y + fBallSize.y;
+		AllBall.push_back(Ball);
+
+
+		brick._svP1 = fBrickPos;
+		brick._svP2.x = fBrickPos.x + fBrickSize.x;
+		brick._svP2.y = fBrickPos.y;
+		Allbrick.push_back(brick);//face du haut
+
+		brick._svP1 = fBrickPos;
+		brick._svP2.x = fBrickPos.x;
+		brick._svP2.y = fBrickPos.y + fBrickSize.y;
+		Allbrick.push_back(brick);//face de gauche
+
+		brick._svP1.x = fBrickPos.x + fBrickSize.x;
+		brick._svP1.y = fBrickPos.y;
+		brick._svP2.x = fBrickPos.x + fBrickSize.x;
+		brick._svP2.y = fBrickPos.y + fBrickSize.y;
+		Allbrick.push_back(brick);//face de droite
+
+		brick._svP1.x = fBrickPos.x + fBrickSize.x;
+		brick._svP1.y = fBrickPos.y + fBrickSize.y;
+		brick._svP2.x = fBrickPos.x;
+		brick._svP2.y = fBrickPos.y + fBrickSize.y;
+		Allbrick.push_back(brick);//face de bas
+
+		Math::Segment Translator = Math::Intersection(AllBall, Allbrick);
+		for (int i = 0; i < Allbrick.size(); i++)
+		{
+			if(Translator._svP1 == Allbrick[i]._svP1 && Translator._svP2 == Allbrick[i]._svP2)
+			{
+				if (i == 0) {
+					//colide face du haut
+				}
+				else if (i == 1) {
+					//colide face du gauche
+				}
+				else if (i == 2) {
+					//colide face du droite
+				}
+				else if (i == 3) {
+					//colide face du bas
+				}
+			}
+		}
 		pBrick->TakeDamage(1);
-		_pObjManager->AddObjToDelete(this);
 	}
 }
 
 Ball::~Ball()
 {
 	_pCanon->DeleteBall(this);
+		
 }
