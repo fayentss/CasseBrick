@@ -4,6 +4,7 @@
 
 namespace Math
 {
+	
 	struct Segment 
 	{
 		float _sfA;
@@ -12,7 +13,6 @@ namespace Math
 		sf::Vector2f _svP1;
 		sf::Vector2f _svP2;
 	};
-	sf::Vector2f _vResult;
 	void CreateSegment(Math::Segment* result);
 
 	bool IsInside(int v, int vMin, int vMax);
