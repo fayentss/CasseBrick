@@ -45,7 +45,7 @@ void Canon::DeleteBall(Ball* pBall)
 
 void Canon::ShootBall()
 {
-	if (_oClock.getElapsedTime().asSeconds() >= 1)
+	if (_oClock.getElapsedTime().asSeconds() >= 1 && _vBallList.size() < 3)
 	{
 		float fBallDiametre = 20;
 

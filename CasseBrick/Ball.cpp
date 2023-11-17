@@ -69,7 +69,7 @@ void Ball::WindowCollider()
 		Bounce("Top");
 	}
 	//Bot Colision 
-	else if (fBallPos.y < 0)
+	else if (fBallPos.y > _pWindow->getSize().y)
 	{
 		//delete;
 		_pObjManager->AddObjToDelete(this);
@@ -120,7 +120,6 @@ void Ball::BlocCollider(Brick* pBrick)
 
 	if (GetMath == true)
 	{
-		std::cout << "Colide";
 		//by the way, quand tu regardera comment fonctionne les fonction car je sais que tu vas look petit chenipan, PointA doit �tre for��ment _vLastPos et point B doit �tre forc�ment la pos actuelle (celle qui a colide)
 		//car je sais tu vas pleurait, dans les nom de variable, H c'est en haut, D a droite, G a gauche, B en bas, donc si tu connecte tout les neurone enssemble HG sa fait ? et oui en haut a gauche hihi aled
 		std::vector<Math::Segment> Allbrick;
@@ -206,5 +205,4 @@ void Ball::BlocCollider(Brick* pBrick)
 Ball::~Ball()
 {
 	_pCanon->DeleteBall(this);
-		
 }
