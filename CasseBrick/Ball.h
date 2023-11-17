@@ -20,7 +20,7 @@ public:
 	void Bounce(const char* side);
 	void WindowCollider();
 	void BlocCollider(Brick* pBrick);
-	char FaceDetection(Brick* pBrick);
+	void FaceDetection(Brick* pBrick);
 
 	~Ball();
 };

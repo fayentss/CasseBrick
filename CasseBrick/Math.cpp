@@ -21,34 +21,34 @@ float Math::FindCoeffInvers(sf::Vector2f A, sf::Vector2f B)
 	vector = A - B;
 	return(vector.y / vector.x);
 }
-sf::Vector2f Math::GetInterPoint(sf::Vector2f ToCheck, Brick* pBrick,const char* side ,float Coeff)
+sf::Vector2f Math::GetInterPoint(sf::Vector2f Previous, sf::Vector2f Next, Brick* pBrick,const char* side ,float Coeff)
 {
 	if (side == "Top")
 	{
 		sf::Vector2f InterPoint;
-		InterPoint.y = ToCheck.y - pBrick->GetPosition().y;
-		InterPoint.x = InterPoint.y * Coeff;
+		InterPoint.y = pBrick->GetPosition().y;
+		InterPoint.x = Previous.x + (((InterPoint.y - Previous.y) * (Next.x - Previous.x))/(Next.y - Previous.y));
 		return InterPoint;
 	}
 	else if (side == "Bot")
 	{
 		sf::Vector2f InterPoint;
-		InterPoint.y = ToCheck.y - (pBrick->GetPosition().y + pBrick->GetSize().y);
-		InterPoint.x = InterPoint.y * Coeff;
+		InterPoint.y = pBrick->GetPosition().y + pBrick->GetSize().y;
+		InterPoint.x = Previous.x + (((InterPoint.y - Previous.y) * (Next.x - Previous.x)) / (Next.y - Previous.y));
 		return InterPoint;
 	}
 	else if (side == "Left")
 	{
 		sf::Vector2f InterPoint;
-		InterPoint.x = ToCheck.x - pBrick->GetPosition().x;
-		InterPoint.y = InterPoint.x * Coeff;
+		InterPoint.x = pBrick->GetPosition().x;
+		InterPoint.y = Previous.y + (((InterPoint.x - Previous.x) * (Next.y - Previous.y)) / (Next.x - Previous.x));
 		return InterPoint;
 	}
 	else if (side == "Right")
 	{
 		sf::Vector2f InterPoint;
-		InterPoint.x = ToCheck.x - (pBrick->GetPosition().x + pBrick->GetSize().x);
-		InterPoint.y = InterPoint.x * Coeff;
+		InterPoint.x = (pBrick->GetPosition().x + pBrick->GetSize().x);
+		InterPoint.y = Previous.y + (((InterPoint.x - Previous.x) * (Next.y - Previous.y)) / (Next.x - Previous.x));
 		return InterPoint;
 	}
 }
@@ -69,7 +69,7 @@ bool Math::InterPointExist(sf::Vector2f InterPoint, Brick* pBrick, const char* s
 			return false;
 	}
 }
-float FindNorme(sf::Vector2f A, sf::Vector2f B)
+float Math::FindNorme(sf::Vector2f A, sf::Vector2f B)
 {
 	sf::Vector2f vector = B - A;
 	float fNorme = sqrt((vector.x * vector.x) + (vector.y * vector.y));
