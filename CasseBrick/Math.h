@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
+#include <vector>
 
 namespace Math
 {
@@ -12,10 +13,12 @@ namespace Math
 		sf::Vector2f _svP2;
 	};
 	sf::Vector2f _vResult;
-	Segment CreateSegment(sf::Vector2f a, sf::Vector2f b);
+	void CreateSegment(Math::Segment* result);
 
 	bool IsInside(int v, int vMin, int vMax);
-	sf::Vector2f Intersection(Segment CourbeBall, Segment CourbeBrick);//todo faire 2 vector de segment pour tout look !
+	float DivisionEclidien(sf::Vector2f Point1, sf::Vector2f Point2);
+	float ValeurMinOrMaxVector(std::vector<float> vValeur, bool MinOrMax);//si le bool est False alors il chercher le + petit (min),sinon le plus grand (max) 
+	Segment Intersection(std::vector<Segment> CourbeBall, std::vector<Segment> CourbeBrick);//todo faire 2 vector de segment pour tout look !
 };
 
 

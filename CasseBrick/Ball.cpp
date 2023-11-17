@@ -120,82 +120,56 @@ void Ball::BlocCollider(Brick* pBrick)
 	{
 		//by the way, quand tu regardera comment fonctionne les fonction car je sais que tu vas look petit chenipan, PointA doit être forçément _vLastPos et point B doit être forcément la pos actuelle (celle qui a colide)
 		//car je sais tu vas pleurait, dans les nom de variable, H c'est en haut, D a droite, G a gauche, B en bas, donc si tu connecte tout les neurone enssemble HG sa fait ? et oui en haut a gauche hihi aled
-		sf::Vector2f XY;
-		struct StructCourbe
-		{
-			sf::Vector2f LastXY;
-			float m;
-			float b;
-		};
-		struct StructCourbeBrick
-		{
-			sf::Vector2f PointUn;
-			sf::Vector2f PointDeux;
-			float m;
-			float b;
-		};
-		struct StructBrick
-		{
-			StructCourbeBrick PointAB;
-			StructCourbeBrick PointAC;
-			StructCourbeBrick PointBD;
-			StructCourbeBrick PointDC;	
-		};
-		StructCourbe HGBall;
-		StructCourbe HDBall;
-		StructCourbe BGBall;
-		StructCourbe BDBall;
-		HGBall.m = Math::CoefM(_vLastPos, fBallPos);
-		HGBall.b = Math::OrigineB(_vLastPos, HGBall.m);
+		std::vector<Math::Segment> Allbrick;
+		std::vector<Math::Segment> AllBall;
+		Math::Segment brick;
+		Math::Segment Ball;
+		
+		Ball._svP1 = _vLastPos;
+		Ball._svP2 = fBallPos;
+		AllBall.push_back(Ball);
 
-		HDBall.LastXY.x = _vLastPos.x + fBallSize.x;
-		HDBall.LastXY.y = _vLastPos.y;
-		XY.x = fBallPos.x + fBallSize.x;
-		XY.y = fBallPos.y;
-		HDBall.m = Math::CoefM(HDBall.LastXY, XY);
-		HDBall.b = Math::OrigineB(HDBall.LastXY, HDBall.m);
+		Ball._svP1.x = _vLastPos.x + fBallSize.x;
+		Ball._svP1.y = _vLastPos.y;
+		Ball._svP2.x = fBallPos.x + fBallSize.x;
+		Ball._svP2.y = fBallPos.y;
+		AllBall.push_back(Ball);
 
-		BGBall.LastXY.x = _vLastPos.x;
-		BGBall.LastXY.y = _vLastPos.y + fBallSize.y;
-		XY.x = fBallPos.x;
-		XY.y = fBallPos.y + fBallSize.y;
-		BGBall.m = Math::CoefM(BGBall.LastXY, XY);
-		BGBall.b = Math::OrigineB(BGBall.LastXY, BGBall.m);
+		Ball._svP1.x = _vLastPos.x;
+		Ball._svP1.y = _vLastPos.y + fBallSize.y;
+		Ball._svP2.x = fBallPos.x;
+		Ball._svP2.y = fBallPos.y + fBallSize.y;
+		AllBall.push_back(Ball);
 
-		BDBall.LastXY.x = _vLastPos.x + fBallSize.x;
-		BDBall.LastXY.y = _vLastPos.y + fBallSize.y;
-		XY.x = fBallPos.x + fBallSize.x;
-		XY.y = fBallPos.y + fBallSize.y;
-		BDBall.m = Math::CoefM(BDBall.LastXY, XY);
-		BDBall.b = Math::OrigineB(BDBall.LastXY, BDBall.m);
+		Ball._svP2.x = _vLastPos.x + fBallSize.x;
+		Ball._svP2.y = _vLastPos.y + fBallSize.y;
+		Ball._svP2.x = fBallPos.x + fBallSize.x;
+		Ball._svP2.y = fBallPos.y + fBallSize.y;
+		AllBall.push_back(Ball);
 
-		StructBrick Brick;
-		Brick.PointAB.PointUn = fBrickPos;
-		Brick.PointAB.PointDeux.x = fBrickPos.x + fBrickSize.x;
-		Brick.PointAB.PointDeux.y = fBrickPos.y;
-		Brick.PointAB.m = Math::CoefM(Brick.PointAB.PointUn, Brick.PointAB.PointDeux);
-		Brick.PointAB.b = Math::OrigineB(Brick.PointAB.PointUn, Brick.PointAB.m);
 
-		Brick.PointAC.PointUn = fBrickPos;
-		Brick.PointAC.PointDeux.x = fBrickPos.x;
-		Brick.PointAC.PointDeux.y = fBrickPos.y + fBrickSize.y;
-		Brick.PointAC.m = Math::CoefM(Brick.PointAC.PointUn, Brick.PointAC.PointDeux);
-		Brick.PointAC.b = Math::OrigineB(Brick.PointAC.PointUn, Brick.PointAC.m);
+		brick._svP1 = fBrickPos;
+		brick._svP2.x = fBrickPos.x + fBrickSize.x;
+		brick._svP2.y = fBrickPos.y;
+		Allbrick.push_back(brick);
 
-		Brick.PointBD.PointUn.x = fBrickPos.x + fBrickSize.x;
-		Brick.PointBD.PointUn.y = fBrickPos.y;
-		Brick.PointBD.PointDeux.x = fBrickPos.x + fBrickSize.x;
-		Brick.PointBD.PointDeux.y = fBrickPos.y + fBrickSize.y;
-		Brick.PointBD.m = Math::CoefM(Brick.PointBD.PointUn, Brick.PointBD.PointDeux);
-		Brick.PointBD.b = Math::OrigineB(Brick.PointBD.PointUn, Brick.PointBD.m);
+		brick._svP1 = fBrickPos;
+		brick._svP2.x = fBrickPos.x;
+		brick._svP2.y = fBrickPos.y + fBrickSize.y;
+		Allbrick.push_back(brick);
 
-		Brick.PointDC.PointUn.x = fBrickPos.x + fBrickSize.x;
-		Brick.PointDC.PointUn.y = fBrickPos.y + fBrickSize.y;
-		Brick.PointDC.PointDeux.x = fBrickPos.x;
-		Brick.PointDC.PointDeux.y = fBrickPos.y + fBrickSize.y;
-		Brick.PointDC.m = Math::CoefM(Brick.PointDC.PointUn, Brick.PointDC.PointDeux);
-		Brick.PointDC.b = Math::OrigineB(Brick.PointDC.PointUn, Brick.PointDC.m);
+		brick._svP1.x = fBrickPos.x + fBrickSize.x;
+		brick._svP1.y = fBrickPos.y;
+		brick._svP2.x = fBrickPos.x + fBrickSize.x;
+		brick._svP2.y = fBrickPos.y + fBrickSize.y;
+		Allbrick.push_back(brick);
 
-		Math::Intersection();
+		brick._svP1.x = fBrickPos.x + fBrickSize.x;
+		brick._svP1.y = fBrickPos.y + fBrickSize.y;
+		brick._svP2.x = fBrickPos.x;
+		brick._svP2.y = fBrickPos.y + fBrickSize.y;
+		Allbrick.push_back(brick);
+
+		Math::Intersection(AllBall, Allbrick);
 	}
 }
