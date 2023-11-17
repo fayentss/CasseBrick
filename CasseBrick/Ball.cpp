@@ -143,8 +143,8 @@ void Ball::BlocCollider(Brick* pBrick)
 		Ball._svP2.y = fBallPos.y + fBallSize.y;
 		AllBall.push_back(Ball);
 
-		Ball._svP2.x = _vLastPos.x + fBallSize.x;
-		Ball._svP2.y = _vLastPos.y + fBallSize.y;
+		Ball._svP1.x = _vLastPos.x + fBallSize.x;
+		Ball._svP1.y = _vLastPos.y + fBallSize.y;
 		Ball._svP2.x = fBallPos.x + fBallSize.x;
 		Ball._svP2.y = fBallPos.y + fBallSize.y;
 		AllBall.push_back(Ball);

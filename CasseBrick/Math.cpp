@@ -80,10 +80,21 @@ Math::Segment Math::Intersection(std::vector<Math::Segment> CourbeBall, std::vec
 			Inter.x = (CourbeBrick[j]._sfB - CourbeBall[i]._sfB) / (CourbeBall[i]._sfA - CourbeBrick[j]._sfA);
 			Inter.y = CourbeBall[i]._sfA * Inter.x + CourbeBall[i]._sfB;
 
-			if (Inter.x >= std::min(CourbeBall[i]._svP1.x, CourbeBall[i]._svP2.x) && Inter.x <= std::max(CourbeBall[i]._svP1.x, CourbeBall[i]._svP2.x) &&
-				Inter.x >= std::min(CourbeBrick[j]._svP1.x, CourbeBrick[j]._svP2.x) && Inter.x <= std::max(CourbeBrick[j]._svP1.x, CourbeBrick[j]._svP2.x) &&
-				Inter.y >= std::min(CourbeBall[i]._svP1.y, CourbeBall[i]._svP2.y) && Inter.y <= std::max(CourbeBall[i]._svP1.y, CourbeBall[i]._svP2.y) &&
-				Inter.y >= std::min(CourbeBrick[j]._svP1.y, CourbeBrick[j]._svP2.y) && Inter.y <= std::max(CourbeBrick[j]._svP1.y, CourbeBrick[j]._svP2.y)) 
+			/*if (Inter.x <= CourbeBrick[j]._svP2.x && Inter.x >= CourbeBrick[j]._svP1.x && Inter.y <= CourbeBrick[j]._svP2.y && Inter.y >= CourbeBrick[j]._svP1.y &&
+				Inter.x <= CourbeBall[i]._svP2.x && Inter.x >= CourbeBall[i]._svP1.x && Inter.y <= CourbeBall[i]._svP2.y && Inter.y >= CourbeBall[i]._svP1.y)
+			{
+				Vector2fSegment recup;
+				recup.Point = Inter;
+				recup.SegmentBrickRebon = CourbeBrick[j];
+				std::cout << recup.SegmentBrickRebon._sfA << " " << recup.SegmentBrickRebon._svP1.x;
+				RecupInter.push_back(recup);
+				std::cout << RecupInter[0].SegmentBrickRebon._sfA << " " << RecupInter[0].SegmentBrickRebon._svP1.x;
+			}*/
+
+			if (((Inter.x >= std::min(CourbeBall[i]._svP1.x, CourbeBall[i]._svP2.x) && Inter.x <= std::max(CourbeBall[i]._svP1.x, CourbeBall[i]._svP2.x)) ||
+				(Inter.x >= std::min(CourbeBrick[j]._svP1.x, CourbeBrick[j]._svP2.x) && Inter.x <= std::max(CourbeBrick[j]._svP1.x, CourbeBrick[j]._svP2.x))) &&
+				((Inter.y >= std::min(CourbeBall[i]._svP1.y, CourbeBall[i]._svP2.y) && Inter.y <= std::max(CourbeBall[i]._svP1.y, CourbeBall[i]._svP2.y)) ||
+				(Inter.y >= std::min(CourbeBrick[j]._svP1.y, CourbeBrick[j]._svP2.y) && Inter.y <= std::max(CourbeBrick[j]._svP1.y, CourbeBrick[j]._svP2.y))))
 			{
 				Vector2fSegment recup;
 				recup.Point = Inter;
@@ -94,15 +105,20 @@ Math::Segment Math::Intersection(std::vector<Math::Segment> CourbeBall, std::vec
 			}
 		}
 		int distance = std::numeric_limits<int>::max();
-		
+		int getJ = -1;
 		for (int j = 0; j < RecupInter.size(); j++) 
 		{
 			RecupInter[j].ResultFromDE = (Math::DivisionEclidien(CourbeBall[i]._svP1, RecupInter[j].Point));
 			if (RecupInter[j].ResultFromDE < distance) {
 				distance = RecupInter[j].ResultFromDE;
-				Resulteallezstptumecasselescouille.push_back(RecupInter[j]);
+				getJ = j;
 			}
 		}
+		if (getJ != -1) 
+		{
+			Resulteallezstptumecasselescouille.push_back(RecupInter[getJ]);
+		}
+		
 	}
 	
 	int distance2 = std::numeric_limits<int>::max();
